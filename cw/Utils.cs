@@ -48,5 +48,26 @@ namespace cw
 
             return false;
         }
+
+        public static double NewtonSqrt(double x, double tol)
+        {
+            double xn = x / 2;
+
+            double a = 0.0;
+
+            while (true)
+            {
+                double xn1 = 0.5* (xn + x/xn);
+
+                if (Math.Abs(xn1 - xn) < tol)
+                    return xn1;
+
+                if (++a == double.MaxValue)
+                    return 0.0;
+
+                xn = xn1;
+            }
+
+        }
     }
 }

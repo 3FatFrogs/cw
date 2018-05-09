@@ -44,5 +44,12 @@ namespace cw.Tests
             //Assert.IsTrue(Utils.IsPerfectSquare(x*x));
         }
 
+        [TestMethod()]
+        public void NewtonSqrtTest()
+        {
+            double x = 546518548456461;
+            double tolerance = 0.00000000000000005;
+            Assert.AreEqual(Utils.NewtonSqrt(x, tolerance), Math.Sqrt(x), 0.000000000001);
+        }
     }
 }
