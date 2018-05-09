@@ -46,6 +46,9 @@ namespace cw.Tests
             Assert.AreEqual(14930352, Fibonacci.GetFibonacciIterative(36));
             Assert.AreEqual(433494437, Fibonacci.GetFibonacciIterative(43));
             Assert.AreEqual(1836311903, Fibonacci.GetFibonacciIterative(46));
+            Assert.AreEqual(5527939700884757, Fibonacci.GetFibonacciIterative(77));
+            Assert.AreEqual(99194853094755497, Fibonacci.GetFibonacciIterative(83));
+            Assert.AreEqual(4660046610375530309, Fibonacci.GetFibonacciIterative(91));
         }
 
         [TestMethod()]

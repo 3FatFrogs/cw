@@ -47,7 +47,7 @@ namespace cw
                     fn2 = 0;
                 }
 
-                if ((i == 1)|| (i == 2))
+                if ((i == 1) || (i == 2))
                 {
                     fn1 = 1;
                     fn2 = 0;
@@ -70,7 +70,7 @@ namespace cw
             if (n <= 0)
                 return 0;
 
-            if (n == 1 || n == 2)
+            if (n == 1)
                 return 1;
 
             return GetFibonacciRecursive(n - 1) + GetFibonacciRecursive(n - 2);
@@ -78,32 +78,24 @@ namespace cw
 
         public static long GetFibonacciIterative(int n)
         {
-            int fn1 = 0;
-            int fn2 = 0;
-            int fn = 0;
 
-            for (int i = 0; i <= n; i++)
+            long Fn_Minus1 = 0;
+            long Fn = 0;
+            long Fn_Plus1 = 1;
+
+            for (int i = 0; i <n ; ++i)
             {
-                if((i == 1)||(i == 2))
-                {
-                    fn2 = 0;
-                    fn1 = 1;
-                    fn = 1;
-                }
-                else
-                {
-                    fn2 = fn1;
-                    fn1 = fn;
-                    fn = fn1 + fn2;
-                }
+                Fn_Minus1 = Fn;
+                Fn = Fn_Plus1;
+                Fn_Plus1 = Fn + Fn_Minus1;
             }
 
-            return fn;
+            return Fn;
         }
     }
 
 
-    public class Prime : Kata
+        public class Prime : Kata
     {
         public static List<int> PrimesBetween(int start, int end)
         {
