@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace cw
 {
@@ -13,7 +11,100 @@ namespace cw
         {
             return a + b;
         }
+    }
 
+    public class Fibonacci : Kata
+    {
+        public static bool IsFibonacci(long x)
+        {
+            if (x < 0)
+                return false;
+
+            long pippo = 5 * x * x + 4;
+
+
+            if (Utils.IsPerfectSquare(5 * x * x + 4))
+                return true;
+
+            else if (Utils.IsPerfectSquare(5 * x * x - 4))
+                return true;
+
+            return false;
+
+        }
+
+        public static List<ulong> CalculateFirstNFibonacci(int n)
+        {
+            List<ulong> fib = new List<ulong>();
+            ulong fn1 = 0;
+            ulong fn2 = 0;
+            ulong fn = 0;
+            for (int i = 0; i <= n; i++)
+            {
+                if (i == 0)
+                {
+                    fn1 = 0;
+                    fn2 = 0;
+                }
+
+                if ((i == 1)|| (i == 2))
+                {
+                    fn1 = 1;
+                    fn2 = 0;
+                }
+
+                if (i > 2)
+                {
+                    fn2 = fn1;
+                    fn1 = fn;
+                }
+                fn = fn1 + fn2;
+                fib.Add(fn);
+            }
+
+            return fib;
+        }
+
+        public static long GetFibonacciRecursive(int n)
+        {
+            if (n <= 0)
+                return 0;
+
+            if (n == 1 || n == 2)
+                return 1;
+
+            return GetFibonacciRecursive(n - 1) + GetFibonacciRecursive(n - 2);
+        }
+
+        public static long GetFibonacciIterative(int n)
+        {
+            int fn1 = 0;
+            int fn2 = 0;
+            int fn = 0;
+
+            for (int i = 0; i <= n; i++)
+            {
+                if((i == 1)||(i == 2))
+                {
+                    fn2 = 0;
+                    fn1 = 1;
+                    fn = 1;
+                }
+                else
+                {
+                    fn2 = fn1;
+                    fn1 = fn;
+                    fn = fn1 + fn2;
+                }
+            }
+
+            return fn;
+        }
+    }
+
+
+    public class Prime : Kata
+    {
         public static List<int> PrimesBetween(int start, int end)
         {
             List<int> x = new List<int>();
@@ -22,16 +113,6 @@ namespace cw
                     x.Add(i);
             return x;
         }
-
-        public List<int> PrimesBetween2(int start, int end)
-        {
-            List<int> x = new List<int>();
-            for (int i = start; i < end; i++)
-                if (IsPrime(i))
-                    x.Add(i);
-            return x;
-        }
-
 
         public static bool IsPrime(int x)
         {
@@ -49,5 +130,6 @@ namespace cw
 
             return true;
         }
+
     }
 }
