@@ -54,10 +54,10 @@ namespace cw.Tests
             Assert.IsTrue(equals);
         }
 
+        [DeploymentItem("prime.txt")]
         public List<int> ListOfPrimesUpTo10k()
-        {
-            //todo move this to DB
-            string filePath = @"C:\Users\estomeo\Data\coding\testData\primes.txt";
+        {           
+            string filePath = @"TestFiles\primes.txt";
             return Utils.ReadFileByLineString(filePath).Select(int.Parse).ToList();
         }
     }
