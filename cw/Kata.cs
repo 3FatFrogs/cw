@@ -95,7 +95,7 @@ namespace cw
     }
 
 
-        public class Prime : Kata
+    public class Prime : Kata
     {
         public static List<int> PrimesBetween(int start, int end)
         {

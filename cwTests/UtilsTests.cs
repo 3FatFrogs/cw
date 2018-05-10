@@ -11,6 +11,18 @@ namespace cw.Tests
     [TestClass()]
     public class UtilsTests
     {
+        private TestContext testContextInstance;
+
+        /// <summary>
+        ///  Gets or sets the test context which provides
+        ///  information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext
+        {
+            get { return testContextInstance; }
+            set { testContextInstance = value; }
+        }
+
         [TestMethod()]
         public void IsPerfectSquareTest()
         {
@@ -50,6 +62,48 @@ namespace cw.Tests
             double x = 546518548456461;
             double tolerance = 0.00000000000000005;
             Assert.AreEqual(Utils.NewtonSqrt(x, tolerance), Math.Sqrt(x), 0.000000000001);
+        }
+
+        [TestMethod()]
+        public void DecimalToBinTest()
+        {
+            TestContext.WriteLine("=== DecimalToBinTest ==== ");
+            var test = Utils.DecimalToBin(4);
+            Assert.AreEqual(Utils.DecimalToBin(-3), "");
+            Assert.AreEqual(Utils.DecimalToBin(0), "0");
+            Assert.AreEqual(Utils.DecimalToBin(1), "1");
+            Assert.AreEqual(Utils.DecimalToBin(4), "100");
+            Assert.AreEqual(Utils.DecimalToBin(19), "10011");
+            Assert.AreEqual(Utils.DecimalToBin(15465749654654654), "110110111100100000010001110010010110011100111010111110");
+        }
+
+        [TestMethod()]
+        public void ReverseStringv1Test()
+        {
+            var str = "£$%^&*()_+QWERTYUIOP{}1234567890";
+            var str2 = "0987654321}{POIUYTREWQ+_)(*&^%$£";
+
+            for (int i = 0; i < 15; i++)
+            {
+                str += str;
+                str2 += str2;
+            }
+
+            Assert.AreEqual(Utils.ReverseStringv1(str), str2);
+        }
+
+        [TestMethod()]
+        public void ReverseStringv2Test()
+        {
+            var str = "£$%^&*()_+QWERTYUIOP{}1234567890";
+            var str2 = "0987654321}{POIUYTREWQ+_)(*&^%$£";
+
+            for (int i = 0; i < 15; i++)
+            {
+                str += str;
+                str2 += str2;
+            }
+            Assert.AreEqual(Utils.ReverseStringv2(str), str2);
         }
     }
 }

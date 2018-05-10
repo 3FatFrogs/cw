@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace cw
 {
@@ -67,7 +68,53 @@ namespace cw
 
                 xn = xn1;
             }
+        }
 
+        public static string DecimalToBin(long x)
+        {
+            if (x == 0)
+                return "0";
+
+            string result = "";
+
+            while (x>=1)
+            {
+                if (x % 2 == 0)
+                    result = result + "0";
+                else
+                    result = result + "1";
+
+                x = x / 2;
+            }
+
+            return ReverseStringv1(result);
+        }
+
+
+        public static string ReverseStringv1(string input)
+        {
+            var x = input.ToCharArray();
+
+            Array.Reverse(x);
+
+            return new string(x);
+        }
+
+        public static string ReverseStringv2(string input)
+        {
+            var x = input.ToCharArray();
+            int len = x.Length-1;
+
+            for (int i = 0; i <= len/2; i++)
+            {
+                int j = len - i;
+
+                char temp = x[i];
+                x[i] = x[j];
+                x[j] = temp;
+            }
+
+            return new string(x);
         }
     }
 }
