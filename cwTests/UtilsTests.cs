@@ -65,19 +65,6 @@ namespace cw.Tests
         }
 
         [TestMethod()]
-        public void DecimalToBinTest()
-        {
-            TestContext.WriteLine("=== DecimalToBinTest ==== ");
-            var test = Utils.DecimalToBin(4);
-            Assert.AreEqual(Utils.DecimalToBin(-3), "");
-            Assert.AreEqual(Utils.DecimalToBin(0), "0");
-            Assert.AreEqual(Utils.DecimalToBin(1), "1");
-            Assert.AreEqual(Utils.DecimalToBin(4), "100");
-            Assert.AreEqual(Utils.DecimalToBin(19), "10011");
-            Assert.AreEqual(Utils.DecimalToBin(15465749654654654), "110110111100100000010001110010010110011100111010111110");
-        }
-
-        [TestMethod()]
         public void ReverseStringv1Test()
         {
             var str = "£$%^&*()_+QWERTYUIOP{}1234567890";
@@ -95,15 +82,37 @@ namespace cw.Tests
         [TestMethod()]
         public void ReverseStringv2Test()
         {
-            var str = "£$%^&*()_+QWERTYUIOP{}1234567890";
-            var str2 = "0987654321}{POIUYTREWQ+_)(*&^%$£";
-
-            for (int i = 0; i < 15; i++)
-            {
-                str += str;
-                str2 += str2;
-            }
+            var str = "1234567890";
+            var str2 = "0987654321";
             Assert.AreEqual(Utils.ReverseStringv2(str), str2);
+        }
+
+
+        [TestMethod()]
+        public void DecimalToBinTest()
+        {
+            TestContext.WriteLine("=== DecimalToBinTest ==== ");
+            Assert.AreEqual(Utils.DecimalToBin(-3), "");
+            Assert.AreEqual(Utils.DecimalToBin(0), "0");
+            Assert.AreEqual(Utils.DecimalToBin(1), "1");
+            Assert.AreEqual(Utils.DecimalToBin(4), "100");
+            Assert.AreEqual(Utils.DecimalToBin(19), "10011");
+            //Assert.AreEqual(Utils.DecimalToBin(15465749654654654), "110110111100100000010001110010010110011100111010111110");
+        }
+
+
+        [TestMethod()]
+        public void DecimalToBin2Test()
+        {
+            TestContext.WriteLine("=== DecimalToBinTest ==== ");
+
+            Assert.AreEqual(Utils.DecimalToBin2(-3), "");
+            Assert.AreEqual(Utils.DecimalToBin2(0), "0");
+            Assert.AreEqual(Utils.DecimalToBin2(1), "1");
+            Assert.AreEqual(Utils.DecimalToBin2(4), "100");
+            Assert.AreEqual(Utils.DecimalToBin2(19), "10011");
+            //Assert.AreEqual(Utils.DecimalToBin2(15465749654654654), "110110111100100000010001110010010110011100111010111110");
+
         }
     }
 }

@@ -10,18 +10,31 @@ namespace cw
     {
         static void Main(string[] args)
         {
-            //long[] longs = { Int64.MinValue, -10534, -189, 0, 17, 113439,Int64.MaxValue };
-            //BigInteger constructed, assigned;
+            string strMain = "main";
 
-            //foreach (long number in longs)
-            //{
-            //    constructed = new BigInteger(number);
-            //    assigned = number;
-            //    Console.WriteLine("{0} = {1}: {2}", constructed, assigned,constructed.Equals(assigned));
-            //}        
+            DoSomething(strMain);
+            Console.Write(strMain); // What gets printed?
 
-            //var test = BigInteger.Parse("32434645606540635465465465465463046540354035410354105345341035416054");
-           
+            List<int> x = new List<int>();
+            x.Add(3424);
+            UpdateList(x);
+
+            foreach (var item in x)
+            {
+                Console.WriteLine(item);
+            }
         }
+
+        public static void DoSomething(string strLocal)
+        {
+            strLocal = "local";
+        }
+
+        public static void UpdateList(List<int> x)
+        {
+            x.Add(22);
+        }
+
+
     }
 }

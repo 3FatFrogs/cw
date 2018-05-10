@@ -77,7 +77,7 @@ namespace cw
 
             string result = "";
 
-            while (x>=1)
+            while (x >= 1)
             {
                 if (x % 2 == 0)
                     result = result + "0";
@@ -90,6 +90,29 @@ namespace cw
             return ReverseStringv1(result);
         }
 
+        public static string DecimalToBin2(long x)
+        {
+            if(x<0)
+                return "";
+
+            if (x == 0)
+                return "0";
+
+            string result = "";
+
+            var numberOfBits = 1 + Math.Floor(d: Math.Log(x, 2));
+
+            for (int i = (int)numberOfBits-1; i >=0; i--)
+            {
+                if ((x & (1 << i)) != 0)
+                    result += "1";
+                else
+                    result += "0";
+            }
+
+            return result;
+
+        }
 
         public static string ReverseStringv1(string input)
         {
@@ -115,6 +138,58 @@ namespace cw
             }
 
             return new string(x);
+        }
+
+        public static List<string> StringPermutations(string s)
+        {
+            List<string> strList = new List<string>();
+
+            var numberOfCombinations = Math.Pow(2, s.Length);
+
+            string temp;
+
+            for (int i = 0; i < numberOfCombinations; i++)
+            {
+                temp = null;
+
+                for (int j = 0; j < s.Length; j++)
+                {
+                    if ((i & (1 << j)) == 0)
+                        temp += " ";
+                    else
+                        temp += s[j];
+                }
+
+                strList.Add(temp);
+            }
+
+            return strList;
+        }
+
+        public static List<string> PrintTruthTable(int n)
+        {
+            var combination = Math.Pow(2, n);
+
+            List<string> result = new List<string>();
+
+            string temp;
+
+            for (int i = 0; i < combination; i++)
+            {
+                Console.WriteLine();
+                temp = null;
+
+                for (int j = n - 1; j >= 0; j--)
+                {
+                    if ((i & (1 << j)) == 0)
+                        temp += "0";
+                    else
+                        temp += "1";
+                }
+                result.Add(temp);
+            }
+
+            return result;
         }
     }
 }
