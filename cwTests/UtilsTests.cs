@@ -114,5 +114,17 @@ namespace cw.Tests
             //Assert.AreEqual(Utils.DecimalToBin2(15465749654654654), "110110111100100000010001110010010110011100111010111110");
 
         }
+
+        [TestMethod()]
+        public void FactorialRecursiveTest()
+        {
+            Assert.AreEqual(Utils.FactorialRecursive(19), 121645100408832000);
+        }
+
+        [TestMethod()]
+        public void FactorialIterativeTest()
+        {
+            Assert.AreEqual(Utils.FactorialIterative(19), 121645100408832000);
+        }
     }
 }

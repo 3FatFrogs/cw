@@ -191,5 +191,32 @@ namespace cw
 
             return result;
         }
+
+        public static long FactorialRecursive(int n)
+        {
+            if (n < 0)
+                throw new Exception("Negative Factorial not implement!!");
+
+            if (n == 0)
+                return 1;
+
+            return n * FactorialRecursive(n - 1);
+        }
+
+        public static long FactorialIterative(int n)
+        {
+            if (n < 0)
+                throw new Exception("Negative Factorial not implement!!");
+
+            long fact = 1;
+
+            for (int i = 1; i <= n; i++)
+            {
+                fact *= i;
+            }
+
+            return fact;
+        }
+
     }
 }
