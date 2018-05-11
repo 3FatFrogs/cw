@@ -10,10 +10,8 @@ namespace cw
     {
         static void Main(string[] args)
         {
-            
-        }
 
- 
+        }
 
     }
 }

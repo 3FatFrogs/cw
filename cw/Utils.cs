@@ -218,5 +218,35 @@ namespace cw
             return fact;
         }
 
+        public static List<string> GetPerms(String s)
+        {
+            List<string> permutations = new List<string>();
+
+            if (s == null)
+                return null;
+
+            if (s.Length == 0)
+            {
+                permutations.Add("");
+                return permutations;
+            }
+
+            char firstChar = s.ElementAt(0);
+            string remainder = s.Substring(1, s.Length - 1);
+            var words = GetPerms(remainder);
+
+            foreach (var word in words)
+            {
+                for (int i = 0; i <= word.Length; i++)
+                {
+                    string start = word.Substring(0, i);
+                    string end = word.Substring(i);
+                    permutations.Add(start + firstChar + end);
+                }
+            }
+
+            return permutations;
+        }
+
     }
 }
