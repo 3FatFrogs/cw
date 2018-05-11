@@ -128,24 +128,28 @@ namespace cw
         /* Write a method to decide if two strings are anagrams or not.*/
         public static bool AreAnagrams(string a, string b)
         {
-            //remove spaces
-            a = new string(a.ToList().Where(x => x != ' ').Select(x => x).ToArray());
-            b = new string(b.ToList().Where(x => x != ' ').Select(x => x).ToArray());
+            //remove spaces and sort
+            a = new string(a.ToList().Where(x => x != ' ').Select(x => x).OrderBy(x => x).ToArray());
+            b = new string(b.ToList().Where(x => x != ' ').Select(x => x).OrderBy(x => x).ToArray());
 
             if(a.Length == b.Length)
             {
-                //sort
-                var pippo1 = a.Select(x => x).OrderBy(x => x);
-                var pippo2 = b.Select(x => x).OrderBy(x => x);
-
-                if (pippo1.SequenceEqual(pippo2))
+                if (a.SequenceEqual(b))
                     return true;
                 else
                     return false;
             }
 
-
             return false;
         }
+
+        //Write a method to replace all spaces in a string with a char passed as argument
+        public static string ReplaceAllSpaceWith(string str, char filler)
+        {
+            return new string(str.Select(x => x == ' ' ? filler : x).ToArray());
+        }
     }
+
+
+
 }

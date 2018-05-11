@@ -24,7 +24,12 @@ namespace cw.Tests
             Assert.IsFalse(Exercises.AreAnagrams(
                 "Ananagram isa word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
                 "An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using al the original letters exactly once."));
+        }
 
+        [TestMethod()]
+        public void ReplaceAllSpaceWithTest()
+        {
+            Assert.AreEqual(Exercises.ReplaceAllSpaceWith(" Hello    World!!! ", 'X'), "XHelloXXXXWorld!!!X");
         }
     }
 }
