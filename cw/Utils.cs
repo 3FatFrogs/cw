@@ -248,5 +248,13 @@ namespace cw
             return permutations;
         }
 
+        //remove char from string
+        public static string Remove(string s, char c)
+        {
+            var removed = s.ToList().Where(x => x != c).Select(x => x).ToArray();
+
+            return new string(removed);
+        }
+
     }
 }

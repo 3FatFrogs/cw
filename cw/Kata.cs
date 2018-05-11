@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
-
+using System.Linq;
 
 namespace cw
 {
@@ -94,7 +93,6 @@ namespace cw
         }
     }
 
-
     public class Prime : Kata
     {
         public static List<int> PrimesBetween(int start, int end)
@@ -123,5 +121,31 @@ namespace cw
             return true;
         }
 
+    }
+
+    public class Exercises: Kata
+    {
+        /* Write a method to decide if two strings are anagrams or not.*/
+        public static bool AreAnagrams(string a, string b)
+        {
+            //remove spaces
+            a = new string(a.ToList().Where(x => x != ' ').Select(x => x).ToArray());
+            b = new string(b.ToList().Where(x => x != ' ').Select(x => x).ToArray());
+
+            if(a.Length == b.Length)
+            {
+                //sort
+                var pippo1 = a.Select(x => x).OrderBy(x => x);
+                var pippo2 = b.Select(x => x).OrderBy(x => x);
+
+                if (pippo1.SequenceEqual(pippo2))
+                    return true;
+                else
+                    return false;
+            }
+
+
+            return false;
+        }
     }
 }

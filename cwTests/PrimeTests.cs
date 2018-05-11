@@ -46,6 +46,7 @@ namespace cw.Tests
         public void PrimesBetweenTest()
         {
             var obtainedPrimes = Prime.PrimesBetween(-2, 100000);
+
             //compare two Lists
             var set = new HashSet<int>(ListOfPrimesUpTo10k());
 

@@ -10,29 +10,12 @@ namespace cw
     {
         static void Main(string[] args)
         {
-            string strMain = "main";
+            var pippo = Exercises.AreAnagrams("wdsf sfvdsrf", "wdcsfsfvdsrf");
 
-            DoSomething(strMain);
-            Console.Write(strMain); // What gets printed?
 
-            List<int> x = new List<int>();
-            x.Add(3424);
-            UpdateList(x);
+            Console.WriteLine(pippo);
 
-            foreach (var item in x)
-            {
-                Console.WriteLine(item);
-            }
-        }
 
-        public static void DoSomething(string strLocal)
-        {
-            strLocal = "local";
-        }
-
-        public static void UpdateList(List<int> x)
-        {
-            x.Add(22);
         }
 
 
