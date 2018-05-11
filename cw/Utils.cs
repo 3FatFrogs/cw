@@ -140,7 +140,7 @@ namespace cw
             return new string(x);
         }
 
-        public static List<string> StringPermutations(string s)
+        public static List<string> StringCombinations(string s)
         {
             List<string> strList = new List<string>();
 
