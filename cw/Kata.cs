@@ -123,6 +123,55 @@ namespace cw
 
     }
 
+
+    public class Sorting: Kata
+    {
+        //implement bubble sort
+        public static void BubbleSort(int[] x)
+        {
+            bool swapped = true;
+            while (swapped)
+            {
+                swapped = false;
+                for (int i = 0; i < x.Length-1; i++)
+                {
+                    if (x[i] > x[i + 1])
+                    {
+                        swapped = true;
+                        SwapInt(i, i + 1, x);
+                    }
+                        
+                }
+            }
+        }
+
+        public static void SelectionSort(int[] x)
+        {
+            int posMin;
+            for (int i = 0; i < x.Length-1; i++)
+            {
+                posMin = i;
+                for (int j = i+1; j < x.Length; j++)
+                {
+                    if(x[j]<x[posMin])
+                    {
+                        posMin = j;
+                    }
+                }
+
+                if (i != posMin)
+                    SwapInt(i, posMin, x);
+            }
+        }
+
+        private static void SwapInt(int a, int b, int[] x)
+        {
+            int temp = x[a];
+            x[a] = x[b];
+            x[b] = temp;
+        }
+    }
+
     public class Exercises: Kata
     {
         /* Write a method to decide if two strings are anagrams or not.*/
@@ -148,8 +197,7 @@ namespace cw
         {
             return new string(str.Select(x => x == ' ' ? filler : x).ToArray());
         }
+
+
     }
-
-
-
 }
