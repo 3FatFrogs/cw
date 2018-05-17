@@ -256,5 +256,12 @@ namespace cw
             return new string(removed);
         }
 
+        public static void SwapInt(int a, int b, int[] x)
+        {
+            int temp = x[a];
+            x[a] = x[b];
+            x[b] = temp;
+        }
+
     }
 }

@@ -10,12 +10,7 @@ namespace cw
     {
         static void Main(string[] args)
         {
-            var pippo = Exercises.AreAnagrams("wdsf sfvdsrf", "wdcsfsfvdsrf");
-
-
-            Console.WriteLine(pippo);
-
-
+            
         }
 
 

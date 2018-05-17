@@ -126,7 +126,6 @@ namespace cw
 
     public class Sorting: Kata
     {
-        //implement bubble sort
         public static void BubbleSort(int[] x)
         {
             bool swapped = true;
@@ -138,9 +137,8 @@ namespace cw
                     if (x[i] > x[i + 1])
                     {
                         swapped = true;
-                        SwapInt(i, i + 1, x);
-                    }
-                        
+                        Utils.SwapInt(i, i + 1, x);
+                    }                      
                 }
             }
         }
@@ -154,22 +152,38 @@ namespace cw
                 for (int j = i+1; j < x.Length; j++)
                 {
                     if(x[j]<x[posMin])
-                    {
                         posMin = j;
-                    }
                 }
 
                 if (i != posMin)
-                    SwapInt(i, posMin, x);
+                    Utils.SwapInt(i, posMin, x);
             }
         }
 
-        private static void SwapInt(int a, int b, int[] x)
+
+        public static void InsertionSort(int[] x, int gap=1)
         {
-            int temp = x[a];
-            x[a] = x[b];
-            x[b] = temp;
+            if (gap < 1)
+                throw new ArgumentOutOfRangeException();
+
+            for (int i = gap; i < x.Length; i++)
+            {
+                for (int j = i; j - gap >= 0 && (x[j] < x[j - gap]); j = j - gap)
+                {
+                    Utils.SwapInt(j, j - gap, x);
+                }
+            }
         }
+
+
+        public static void ShellSort(int[] a, List<int> gaps)
+        {
+            foreach (int gap in gaps)
+            {
+                InsertionSort(a, gap);
+            }
+        }
+        
     }
 
     public class Exercises: Kata
