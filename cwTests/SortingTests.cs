@@ -58,7 +58,7 @@ namespace cw.Tests
         public void ShellSortTest()
         {
             List<int> gaps = new List<int>();
-            gaps.Add(1+ iData.Length/2);
+            gaps.Add(1 + iData.Length / 2);
             gaps.Add(701);
             gaps.Add(53);
             gaps.Add(23);
@@ -66,6 +66,14 @@ namespace cw.Tests
 
             Sorting.ShellSort(iData, gaps);
             Assert.IsTrue(Enumerable.SequenceEqual(iData, oData));
+        }
+
+        [TestMethod()]
+        public void QuickSortTest()
+        {
+            Sorting.QuickSort(iData, 0, iData.Length - 1);
+            Assert.IsTrue(Enumerable.SequenceEqual(iData, oData));
+
         }
     }
 }

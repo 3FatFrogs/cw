@@ -248,6 +248,15 @@ namespace cw
             return permutations;
         }
 
+        public static void PrintArray(int[] x)
+        {
+            for (int i = 0; i < x.Length; i++)
+            {
+                Console.Write(x[i] + " ");
+            }
+            Console.WriteLine();
+        }
+
         //remove char from string
         public static string Remove(string s, char c)
         {

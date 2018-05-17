@@ -183,7 +183,36 @@ namespace cw
                 InsertionSort(a, gap);
             }
         }
-        
+
+        public static void QuickSort(int[] x, int lo, int hi)
+        {
+            if (lo < hi)
+            {
+                int p = Partion(x, lo, hi);
+                QuickSort(x, lo, p - 1);
+                QuickSort(x, p + 1, hi);
+            }
+        }
+
+        public static int Partion(int[] A, int lo, int hi)
+        {
+            int i = lo;
+
+            int pivot = A[hi];
+
+            for (int j = lo; j < hi; j++)
+            {
+                if (A[j] < pivot)
+                {
+                    Utils.SwapInt(i, j, A);
+                    i++;
+                }
+            }
+
+            Utils.SwapInt(i, hi, A);
+            return i;
+        }
+
     }
 
     public class Exercises: Kata
