@@ -14,7 +14,7 @@ namespace cw.Tests
         [TestInitialize]
         public void Initialize()
         {
-            iData = new int[9000];
+            iData = new int[901];
             InitializeIntArray(iData);
 
             oData = iData.OrderBy(x => x).ToArray();

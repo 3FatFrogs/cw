@@ -146,12 +146,12 @@ namespace cw
         public static void SelectionSort(int[] x)
         {
             int posMin;
-            for (int i = 0; i < x.Length-1; i++)
+            for (int i = 0; i < x.Length - 1; i++)
             {
                 posMin = i;
-                for (int j = i+1; j < x.Length; j++)
+                for (int j = i + 1; j < x.Length; j++)
                 {
-                    if(x[j]<x[posMin])
+                    if (x[j] < x[posMin])
                         posMin = j;
                 }
 
@@ -160,8 +160,7 @@ namespace cw
             }
         }
 
-
-        public static void InsertionSort(int[] x, int gap=1)
+        public static void InsertionSort(int[] x, int gap = 1)
         {
             if (gap < 1)
                 throw new ArgumentOutOfRangeException();
@@ -174,7 +173,6 @@ namespace cw
                 }
             }
         }
-
 
         public static void ShellSort(int[] a, List<int> gaps)
         {
@@ -196,21 +194,16 @@ namespace cw
 
         public static int Partion(int[] A, int lo, int hi)
         {
-            int i = lo;
-
             int pivot = A[hi];
 
             for (int j = lo; j < hi; j++)
             {
-                if (A[j] < pivot)
-                {
-                    Utils.SwapInt(i, j, A);
-                    i++;
-                }
+                if (A[j] < A[hi])
+                    Utils.SwapInt(lo++, j, A);
             }
 
-            Utils.SwapInt(i, hi, A);
-            return i;
+            Utils.SwapInt(lo, hi, A);
+            return lo;
         }
 
     }
@@ -240,7 +233,5 @@ namespace cw
         {
             return new string(str.Select(x => x == ' ' ? filler : x).ToArray());
         }
-
-
     }
 }
