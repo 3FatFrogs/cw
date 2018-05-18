@@ -6,9 +6,16 @@ namespace cw
 {
     public class Kata
     {
-        public static double Addition(double a, double b)
+        public static double Addition(int a, int b)
         {
-            return a + b;
+            if (b == 0)
+                return a;
+
+            int sum = a ^ b; //xor
+
+            int carry = (a & b) << 1;
+
+            return Addition(sum, carry);
         }
     }
 
@@ -122,7 +129,6 @@ namespace cw
         }
 
     }
-
 
     public class Sorting: Kata
     {
