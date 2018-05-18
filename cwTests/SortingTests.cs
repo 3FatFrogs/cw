@@ -15,7 +15,7 @@ namespace cw.Tests
         public void Initialize()
         {
             iData = new int[901];
-            InitializeIntArray(iData);
+            Utils.InitializeIntArrayRandomly(iData);
 
             oData = iData.OrderBy(x => x).ToArray();
         }
@@ -23,15 +23,6 @@ namespace cw.Tests
         public int[] iData { get; set; }
         public int[] oData { get; set; }
 
-        private void InitializeIntArray(int[] x)
-        {
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
-
-            for (int i = 0; i < x.Length; i++)
-            {
-                x[i] = rand.Next();
-            }
-        }
 
         [TestMethod()]
         public void BubbleSortTest()

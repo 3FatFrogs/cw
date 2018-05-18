@@ -50,6 +50,16 @@ namespace cw
             return false;
         }
 
+        public static void InitializeIntArrayRandomly(int[] x)
+        {
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+
+            for (int i = 0; i < x.Length; i++)
+            {
+                x[i] = rand.Next();
+            }
+        }
+
         public static double NewtonSqrt(double x, double tol)
         {
             double xn = x / 2;
@@ -271,6 +281,5 @@ namespace cw
             x[a] = x[b];
             x[b] = temp;
         }
-
     }
 }
