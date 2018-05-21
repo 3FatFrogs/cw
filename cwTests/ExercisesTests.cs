@@ -31,5 +31,11 @@ namespace cw.Tests
         {
             Assert.AreEqual(Exercises.ReplaceAllSpaceWith(" Hello    World!!! ", 'X'), "XHelloXXXXWorld!!!X");
         }
+
+        [TestMethod()]
+        public void Count2sTest()
+        {
+            Assert.AreEqual(14, Exercises.Count2s(33));
+        }
     }
 }

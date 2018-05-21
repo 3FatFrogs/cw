@@ -239,5 +239,23 @@ namespace cw
         {
             return new string(str.Select(x => x == ' ' ? filler : x).ToArray());
         }
+
+        //Write a method to count the number of 2s between 0 and n
+        public static int Count2s(int n)
+        {
+            int count = 0;
+            for (int i = 0; i <= n; i++)
+            {
+                var x = i.ToString().ToCharArray();
+
+                foreach (char c in x)
+                {
+                    if (c == '2')
+                        count++;
+                }
+            }
+            return count++;
+        }
+
     }
 }
