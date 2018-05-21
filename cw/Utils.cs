@@ -228,7 +228,7 @@ namespace cw
             return fact;
         }
 
-        public static List<string> GetPerms(String s)
+        public static List<string> GetPermutations(String s)
         {
             List<string> permutations = new List<string>();
 
@@ -243,7 +243,7 @@ namespace cw
 
             char firstChar = s.ElementAt(0);
             string remainder = s.Substring(1, s.Length - 1);
-            var words = GetPerms(remainder);
+            var words = GetPermutations(remainder);
 
             foreach (var word in words)
             {
