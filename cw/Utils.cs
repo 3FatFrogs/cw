@@ -280,6 +280,9 @@ namespace cw
             if (a < 0 || b < 0)
                 throw new ArgumentOutOfRangeException();
 
+            if (a > x.Length || b > x.Length)
+                throw new ArgumentOutOfRangeException();
+
             if (a != b)
             {
                 T temp = x[a];
