@@ -289,5 +289,10 @@ namespace cw
 
         }
 
+        //add an extension to the int class
+        public static int Negate(this int i)
+        {
+            return -i;
+        }
     }
 }
