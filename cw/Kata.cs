@@ -143,7 +143,7 @@ namespace cw
                     if (x[i] > x[i + 1])
                     {
                         swapped = true;
-                        Utils.SwapInt(i, i + 1, x);
+                        Utils.SwapElementsInArray(i, i + 1, x);
                     }                      
                 }
             }
@@ -162,7 +162,7 @@ namespace cw
                 }
 
                 if (i != posMin)
-                    Utils.SwapInt(i, posMin, x);
+                    Utils.SwapElementsInArray(i, posMin, x);
             }
         }
 
@@ -175,7 +175,7 @@ namespace cw
             {
                 for (int j = i; j - gap >= 0 && (x[j] < x[j - gap]); j = j - gap)
                 {
-                    Utils.SwapInt(j, j - gap, x);
+                    Utils.SwapElementsInArray(j, j - gap, x);
                 }
             }
         }
@@ -205,10 +205,10 @@ namespace cw
             for (int j = lo; j < hi; j++)
             {
                 if (A[j] < A[hi])
-                    Utils.SwapInt(lo++, j, A);
+                    Utils.SwapElementsInArray(lo++, j, A);
             }
 
-            Utils.SwapInt(lo, hi, A);
+            Utils.SwapElementsInArray(lo, hi, A);
             return lo;
         }
 
@@ -239,6 +239,34 @@ namespace cw
         {
             return new string(str.Select(x => x == ' ' ? filler : x).ToArray());
         }
+
+        /* You have a large text file containing words. Given any two words, find the shortest 
+         * distance (in terms of number of words) between them in the file. 
+         */
+         public static int ShortestDistance(string message, string word)
+        {
+            int distance = 0;
+
+            //remove empty and newlines from initial string
+            var msg = message.Split(new char[] { ' ' }, message.Length, StringSplitOptions.RemoveEmptyEntries).
+                Where(x => x != "\r\n").ToList();
+
+            //convert List<string> to Dictionary<int, string> using LINQ
+            var dict = msg.Select((s, i) => new { s, i }).ToDictionary(x => x.i, x => x.s);
+
+            //search for the given word - ignoring , at the end of the word
+            var result = dict.Where(kvp => kvp.Value.ToLower().Replace(',', ' ').Trim() == word).ToArray();
+
+            if (result.Count() < 2)
+                return distance;
+
+            List<int> dist = new List<int>();
+            for (int i = 0; i < result.Length - 1; i++)
+                dist.Add(result.ElementAt(i + 1).Key - result.ElementAt(i).Key);
+
+            return dist.Min();
+        }
+
 
         //Write a method to count the number of 2s between 0 and n
         public static int Count2s(int n)

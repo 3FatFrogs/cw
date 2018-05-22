@@ -126,5 +126,12 @@ namespace cw.Tests
         {
             Assert.AreEqual(Utils.FactorialIterative(19), 121645100408832000);
         }
+
+        [TestMethod()]
+        public void NegateTest()
+        {
+            int i = 4;
+            Assert.AreEqual(-4, Utils.Negate(i));
+        }
     }
 }
