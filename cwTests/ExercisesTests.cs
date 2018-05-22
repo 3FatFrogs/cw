@@ -37,5 +37,11 @@ namespace cw.Tests
         {
             Assert.AreEqual(14, Exercises.Count2s(33));
         }
+
+        [TestMethod()]
+        public void ShortestDistanceTest()
+        {
+            Assert.AreEqual(11, Exercises.ShortestDistance("An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.", "word"));
+        }
     }
 }
