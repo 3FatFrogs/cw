@@ -258,11 +258,11 @@ namespace cw
             return permutations;
         }
 
-        public static void PrintArray(int[] x)
+        public static void PrintArray<T>(T[] x)
         {
             for (int i = 0; i < x.Length; i++)
             {
-                Console.Write(x[i] + " ");
+                Console.WriteLine(x[i]);
             }
             Console.WriteLine();
         }
@@ -275,11 +275,19 @@ namespace cw
             return new string(removed);
         }
 
-        public static void SwapInt(int a, int b, int[] x)
+        public static void SwapElementsInArray<T>(int a, int b, T[] x)
         {
-            int temp = x[a];
-            x[a] = x[b];
-            x[b] = temp;
+            if (a < 0 || b < 0)
+                throw new ArgumentOutOfRangeException();
+
+            if (a != b)
+            {
+                T temp = x[a];
+                x[a] = x[b];
+                x[b] = temp;
+            }
+
         }
+
     }
 }
