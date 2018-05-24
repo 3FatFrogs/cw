@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Numerics;
 using System.Diagnostics;
 
+
 namespace cw
 {
     public static class Utils
@@ -41,9 +42,9 @@ namespace cw
             if (x < 0)
                 return false;
 
-            var squared = Math.Floor(Math.Pow(x,1/2));
+            var squared = Math.Floor(Math.Pow(x, 1 / 2));
 
-            
+
             if (squared * squared == x)
                 return true;
 
@@ -68,7 +69,7 @@ namespace cw
 
             while (true)
             {
-                double xn1 = 0.5* (xn + x/xn);
+                double xn1 = 0.5 * (xn + x / xn);
 
                 if (Math.Abs(xn1 - xn) < tol)
                     return xn1;
@@ -102,7 +103,7 @@ namespace cw
 
         public static string DecimalToBin2(long x)
         {
-            if(x<0)
+            if (x < 0)
                 return "";
 
             if (x == 0)
@@ -112,7 +113,7 @@ namespace cw
 
             var numberOfBits = 1 + Math.Floor(d: Math.Log(x, 2));
 
-            for (int i = (int)numberOfBits-1; i >=0; i--)
+            for (int i = (int)numberOfBits - 1; i >= 0; i--)
             {
                 if ((x & (1 << i)) != 0)
                     result += "1";
@@ -136,9 +137,9 @@ namespace cw
         public static string ReverseStringv2(string input)
         {
             var x = input.ToCharArray();
-            int len = x.Length-1;
+            int len = x.Length - 1;
 
-            for (int i = 0; i <= len/2; i++)
+            for (int i = 0; i <= len / 2; i++)
             {
                 int j = len - i;
 
@@ -267,6 +268,33 @@ namespace cw
             Console.WriteLine();
         }
 
+        public static void PrintList<T>(List<T> x)
+        {
+            foreach (var item in x)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
+        }
+
+        public static List<int> GeneratedList(int startingAt, int count)
+        {
+            return Enumerable.Range(startingAt, count).ToList();
+        }
+
+        public static List<int> GeneratedListRandom(int listLenght)
+        {
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+            List<int> myList = new List<int>();
+
+            for (int i = 0; i < listLenght; i++)
+            {
+                myList.Add(rand.Next());
+            }
+
+            return myList;
+        }
+
         //remove char from string
         public static string Remove(string s, char c)
         {
@@ -297,5 +325,12 @@ namespace cw
         {
             return -i;
         }
+
+        //convert List<T> to Dictionary<int, T> using LINQ
+        public static Dictionary<int,T> ConvertListToDictionary<T>(List<T> inputList)
+        {
+            return inputList.Select((value, index) => new { s= value, i=index }).ToDictionary(x => x.i, x => x.s);
+        }
+        
     }
 }

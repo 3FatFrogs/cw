@@ -89,7 +89,7 @@ namespace cw
             long Fn = 0;
             long Fn_Plus1 = 1;
 
-            for (int i = 0; i <n ; ++i)
+            for (int i = 0; i < n; ++i)
             {
                 Fn_Minus1 = Fn;
                 Fn = Fn_Plus1;
@@ -130,7 +130,7 @@ namespace cw
 
     }
 
-    public class Sorting: Kata
+    public class Sorting : Kata
     {
         public static void BubbleSort(int[] x)
         {
@@ -138,13 +138,13 @@ namespace cw
             while (swapped)
             {
                 swapped = false;
-                for (int i = 0; i < x.Length-1; i++)
+                for (int i = 0; i < x.Length - 1; i++)
                 {
                     if (x[i] > x[i + 1])
                     {
                         swapped = true;
                         Utils.SwapElementsInArray(i, i + 1, x);
-                    }                      
+                    }
                 }
             }
         }
@@ -214,7 +214,7 @@ namespace cw
 
     }
 
-    public class Exercises: Kata
+    public class Exercises : Kata
     {
         /* Write a method to decide if two strings are anagrams or not.*/
         public static bool AreAnagrams(string a, string b)
@@ -223,7 +223,7 @@ namespace cw
             a = new string(a.ToList().Where(x => x != ' ').Select(x => x).OrderBy(x => x).ToArray());
             b = new string(b.ToList().Where(x => x != ' ').Select(x => x).OrderBy(x => x).ToArray());
 
-            if(a.Length == b.Length)
+            if (a.Length == b.Length)
             {
                 if (a.SequenceEqual(b))
                     return true;
@@ -240,10 +240,11 @@ namespace cw
             return new string(str.Select(x => x == ' ' ? filler : x).ToArray());
         }
 
+
         /* You have a large text file containing words. Given any two words, find the shortest 
          * distance (in terms of number of words) between them in the file. 
          */
-         public static int ShortestDistance(string message, string word)
+        public static int ShortestDistance(string message, string word)
         {
             int distance = 0;
 
@@ -284,6 +285,5 @@ namespace cw
             }
             return count++;
         }
-
     }
 }
