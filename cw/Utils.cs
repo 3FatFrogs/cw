@@ -261,6 +261,7 @@ namespace cw
 
         public static void PrintArray<T>(T[] x)
         {
+            Console.WriteLine("====================================");
             for (int i = 0; i < x.Length; i++)
             {
                 Console.WriteLine(x[i]);
