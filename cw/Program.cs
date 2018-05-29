@@ -11,14 +11,14 @@ namespace cw
 {
     class Program
     {
-        delegate bool MeDelegate(int x); //declare delegate
+        delegate bool MeDelegate(int x); //declare delegate (predicate)
         static bool LessThan5(int x) { return x < 5; }
         static bool LessThan7(int x) { return x < 7; }
 
         static void Main(string[] args)
         {
-            ExampleWithDelegate();
-            //ExampleDelegatemachinery();
+            //ExampleWithDelegate();
+            ExampleDelegatemachinery();
         }
 
         private static void ExampleDelegatemachinery()
@@ -39,11 +39,15 @@ namespace cw
             g.AddStopMachinery(w.FinishWelding);
             g.AddStopMachinery(w.FinishWelding);
             g.AddStopMachinery(p.PaintOff);
-            g.RemoveStopMachinery(f.StopFolding);
-            g.RemoveStopMachinery(f.StopFolding);
-            g.RemoveStopMachinery(f.StopFolding);
             g.AddStopMachinery(() => s.StaplerOff(0));  // or use anonymous method as this:   g.AddStopMachinery(delegate { s.StaplerOff(0); });
             g.ShutDown();
+
+            TemperatureMonitor t = new TemperatureMonitor();
+            t.MachineOverheating += w.FinishWelding; //Subscribing to an event
+            t.MachineOverheating += p.PaintOff;
+            t.Notify(); //raise event
+
+            //g.Notify();
 
             Console.WriteLine("===============================");
         }
@@ -150,14 +154,26 @@ namespace cw
         }
     }
 
+    class TemperatureMonitor
+    {
+        public delegate void TestMyStopMachineryDelegate(); //declare delegate
+        public event TestMyStopMachineryDelegate MachineOverheating; // event
+
+        public void Notify()
+        {
+            this.MachineOverheating?.Invoke();
+        }
+    }
+
     class GoodController
     {
         public delegate void stopMachineryDelegate(); //declare delegate
         stopMachineryDelegate stopMachinery;  // create an instance of the delegate
+        public event stopMachineryDelegate MachineOverheating;  //declare event
 
         public void ShutDown()
         {
-            this.stopMachinery();
+            this.stopMachinery(); //invoke
         }
 
         public void AddStopMachinery(stopMachineryDelegate machineToStop)
