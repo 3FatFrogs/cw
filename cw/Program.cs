@@ -169,7 +169,6 @@ namespace cw
     {
         public delegate void stopMachineryDelegate(); //declare delegate
         stopMachineryDelegate stopMachinery;  // create an instance of the delegate
-        public event stopMachineryDelegate MachineOverheating;  //declare event
 
         public void ShutDown()
         {
