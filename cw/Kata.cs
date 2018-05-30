@@ -321,5 +321,21 @@ namespace cw
 
             return delta * result;
         }
+
+        public static void QuadraticEquation(double a, double b, double c, ref double x0, ref double x1)
+        {
+            if (a == 0)
+                throw new ArgumentOutOfRangeException();
+
+            double d = b*b- 4*a*c;
+
+            if (d < 0)
+                throw new ArgumentException();
+
+            double sqrt = Math.Sqrt(d);
+
+            x0 = (-b + sqrt) / (2 * a);
+            x1 = (-b - sqrt) / (2 * a);
+        }
     }
 }
