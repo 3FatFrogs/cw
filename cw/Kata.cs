@@ -308,6 +308,24 @@ namespace cw
             return h * s / 3;
         }
 
+        public static double IntegralSimpson(double lowerBound, double upperBound, int numberOfSteps, Func<double, double> f, double errorTolerance)
+        {
+            double currentResult = 0.0;
+            double previousResult = double.MaxValue;
+
+            for (int i = 1; i <= numberOfSteps; i++)
+            {
+                currentResult = IntegralSimpson(lowerBound, upperBound, i, f);
+
+                if (Math.Abs(currentResult - previousResult) < Math.Abs(currentResult* errorTolerance))
+                    return currentResult;
+
+                previousResult = currentResult;
+            }
+
+            return currentResult;
+        }
+
         public static double IntegralTrapezoidal(double a, double b, int steps, Func<double, double> f)
         {
             double delta = (b - a) / steps;
