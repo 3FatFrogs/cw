@@ -286,4 +286,40 @@ namespace cw
             return count++;
         }
     }
+
+    public class NumericalMethods
+    {
+        public static double IntegralSimpson(double a, double b, int n, Func<double, double> f)
+        {
+            if ((n < 1) || (b < a))
+                throw new ArgumentOutOfRangeException();
+
+            double s = f(a) + f(b);
+            double h = (b - a) / n;
+
+            for (int i = 1; i < n; i++)
+            {
+                if ((i % 2) == 0)
+                    s += 2 * f(a + i * h);
+                else
+                    s += 4 * f(a + i * h);
+            }
+
+            return h * s / 3;
+        }
+
+        public static double IntegralTrapezoidal(double a, double b, int steps, Func<double, double> f)
+        {
+            double delta = (b - a) / steps;
+            double result = 0.5 * (f(a) + f(b));
+
+            for (int i = 1; i < steps; i++)
+            {
+                a += delta;
+                result += f(a);
+            }
+
+            return delta * result;
+        }
+    }
 }
