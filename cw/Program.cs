@@ -17,9 +17,13 @@ namespace cw
 
         static void Main(string[] args)
         {
-            //ExampleWithDelegate();
-            ExampleDelegatemachinery();
+            Func<double, double> f = (x => 2 * Math.Cos(x) - 3 * x);
+            Func<double, double> g = (x => -2 * Math.Sin(x) - 3);
+
+            NumericalMethods.NewtonMethod(f, g, 0.25);
+            NumericalMethods.NewtonMethod(f, g, 1);
         }
+
 
         private static void ExampleDelegatemachinery()
         {

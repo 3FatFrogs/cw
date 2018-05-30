@@ -58,8 +58,26 @@ namespace cw.Tests
             Func<double, double> f1 = (x => Math.Exp(-x) * Math.Cos(x));
             Func<double, double> f2 = (x => x = 1 / (1 + x * 2));
 
-            Assert.AreEqual(0.499066278634146, NumericalMethods.IntegralSimpson(0, 2 * Math.PI, steps, f1,tolerance), tolerance);
+            Assert.AreEqual(0.499066278634146, NumericalMethods.IntegralSimpson(0, 2 * Math.PI, steps, f1, tolerance), tolerance);
             Assert.AreEqual(0.9729550745276567, NumericalMethods.IntegralSimpson(1, 10, steps, f2, tolerance), tolerance);
+        }
+
+        [TestMethod()]
+        public void NewtonMethodTest()
+        {
+            double tolerance = 0.00000000000001;
+            double initialValue = 0.25;
+            int maxNumberofSteps = 100;
+            Func<double, double> f = (x => 2 * Math.Cos(x) - 3 * x);
+            Func<double, double> g = (x => -2 * Math.Sin(x) - 3);
+
+            Assert.AreEqual(0.5635692042255156424905, NumericalMethods.NewtonMethod(f, g, initialValue), tolerance);
+
+            f = (x => 5*x*x-3);
+            g = (x => 10*x);
+
+            Assert.AreEqual(0.774596669241483377, NumericalMethods.NewtonMethod(f, g, initialValue), tolerance);
+
         }
     }
 }

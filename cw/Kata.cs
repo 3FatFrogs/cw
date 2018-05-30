@@ -127,7 +127,6 @@ namespace cw
 
             return true;
         }
-
     }
 
     public class Sorting : Kata
@@ -354,6 +353,25 @@ namespace cw
 
             x0 = (-b + sqrt) / (2 * a);
             x1 = (-b - sqrt) / (2 * a);
+        }
+
+        public static double NewtonMethod(Func<double, double> f, Func<double, double> g, double x0, int maxNumberOfSteps = int.MaxValue, double tolerance=1E-15)
+        {
+            double nextApproximation = x0;
+            double currentSolution = x0;
+
+            for (int i = 0; i < maxNumberOfSteps; i++)
+            {
+                nextApproximation = currentSolution - (f(currentSolution) / g(currentSolution));
+
+                System.Diagnostics.Trace.WriteLine(i + " -- " + nextApproximation + " sol=" + f(nextApproximation));
+
+                if (Math.Abs(f(nextApproximation)) < Math.Abs(tolerance))
+                    return nextApproximation;
+
+                currentSolution = nextApproximation;
+            }            
+            return nextApproximation;
         }
     }
 }
