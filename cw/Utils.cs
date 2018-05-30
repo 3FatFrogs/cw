@@ -61,6 +61,8 @@ namespace cw
             }
         }
 
+        //Newton for sqrt function 
+        //todo move this function into NumericalMethods class
         public static double NewtonSqrt(double x, double tol)
         {
             double xn = x / 2;
