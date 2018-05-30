@@ -332,6 +332,14 @@ namespace cw
         {
             return inputList.Select((value, index) => new { s= value, i=index }).ToDictionary(x => x.i, x => x.s);
         }
+
+        public static void FileWriteLine(string path, string content)
+        {
+            if (!File.Exists(path))
+                File.WriteAllText(path, content);
+            else
+                File.AppendAllText(path, content + Environment.NewLine);
+        }
         
     }
 }
