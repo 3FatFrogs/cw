@@ -96,7 +96,26 @@ namespace cw.Tests
         [TestMethod()]
         public void SlopeTest()
         {
-            Assert.AreEqual(0.5, NumericalMethods.Slope((x => 0.5*x+2), 6, 2));
+            Assert.AreEqual(0.5, NumericalMethods.Slope((x => 0.5 * x + 2), 6, 2));
+        }
+
+        [TestMethod()]
+        public void RegulaFalseMethodTest()
+        {
+            int maxIterations = 200;
+            double delta = 0.00000000000001;
+
+            Func<double, double> f = (x => 2 * Math.Cos(x) - 3 * x);
+            System.Diagnostics.Trace.WriteLine("===========================");
+            Assert.AreEqual(0.5635692042255156424905, NumericalMethods.RegulaFalseMethod(f, -10, 10, maxIterations), delta);
+
+            System.Diagnostics.Trace.WriteLine("===========================");
+            f = (x => 5 * x - 3);
+            Assert.AreEqual(0.6, NumericalMethods.RegulaFalseMethod(f, -50, 50, maxIterations, 1E-6), delta);
+
+            System.Diagnostics.Trace.WriteLine("===========================");
+            f = (x => x - Math.Exp(-x));
+            Assert.AreEqual(0.567143290409783872, NumericalMethods.RegulaFalseMethod(f, -1, 1, maxIterations, 1E-19), delta);
         }
     }
 }

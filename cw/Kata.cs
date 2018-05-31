@@ -392,6 +392,8 @@ namespace cw
             {
                 x = 0.5 * (a + b);
 
+                System.Diagnostics.Trace.WriteLine(string.Format("i={0} x= {1}, f(x)={2}", i, x, f(x)));
+
                 if (Math.Abs(f(x)) < epsilon)
                     return x;
 
@@ -403,6 +405,37 @@ namespace cw
 
             return x;
         }
+
+        public static double RegulaFalseMethod(Func<double, double> f, double a, double b, int maxNumberOfIterations = int.MaxValue, double epsilon = 1E-15)
+        {
+            if (Math.Sign(f(a)) == Math.Sign(f(b)))
+                throw new ArgumentOutOfRangeException();
+
+            if (Math.Abs(f(a)) < epsilon)
+                return a;
+
+            if (Math.Abs(f(b)) < epsilon)
+                return b;
+
+            double x = 0.0;
+            for (int i = 0; i < maxNumberOfIterations; i++)
+            {
+                x = a - f(a) / Slope(f, a, b);
+
+                System.Diagnostics.Trace.WriteLine(string.Format("i={0} x= {1}, f(x)={2}", i, x ,f(x)));
+
+                if (Math.Abs(f(x)) < epsilon)
+                    return x;
+
+                if (Math.Sign(f(a)) == Math.Sign(f(x)))
+                    a = x;
+                else
+                    b = x;
+            }
+
+            return x;
+        }
+
 
         public static double Slope(Func<double,double> f, double a, double b)
         {
