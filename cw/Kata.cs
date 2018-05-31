@@ -339,7 +339,7 @@ namespace cw
             return delta * result;
         }
 
-        public static void QuadraticEquation(double a, double b, double c, ref double x0, ref double x1)
+        public static void SolveQuadraticEquation(double a, double b, double c, ref double x0, ref double x1)
         {
             if (a == 0)
                 throw new ArgumentOutOfRangeException();
@@ -435,7 +435,6 @@ namespace cw
 
             return x;
         }
-
 
         public static double Slope(Func<double,double> f, double a, double b)
         {

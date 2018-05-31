@@ -42,7 +42,7 @@ namespace cw.Tests
             double tol = 0.0000001;
             double sol1 = 0;
             double sol2 = 0;
-            NumericalMethods.QuadraticEquation(16, 4, -1, ref sol1, ref sol2);
+            NumericalMethods.SolveQuadraticEquation(16, 4, -1, ref sol1, ref sol2);
 
             Assert.AreEqual(0.15450849718747373, sol1, tol);
             Assert.AreEqual(-0.4045084971874737, sol2, tol);
