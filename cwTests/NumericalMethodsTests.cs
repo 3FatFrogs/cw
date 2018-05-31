@@ -34,7 +34,6 @@ namespace cw.Tests
 
             Assert.AreEqual(0.499066278634146, NumericalMethods.IntegralTrapezoidal(0, 2 * Math.PI, steps, f1), tolerance);
             Assert.AreEqual(0.9729550745276567, NumericalMethods.IntegralTrapezoidal(1, 10, steps, f2), tolerance);
-
         }
 
         [TestMethod()]
@@ -68,16 +67,30 @@ namespace cw.Tests
             double tolerance = 0.00000000000001;
             double initialValue = 0.25;
             int maxNumberofSteps = 100;
+
             Func<double, double> f = (x => 2 * Math.Cos(x) - 3 * x);
             Func<double, double> g = (x => -2 * Math.Sin(x) - 3);
+            Assert.AreEqual(0.5635692042255156424905, NumericalMethods.NewtonMethod(f, g, initialValue, maxNumberofSteps), tolerance);
 
-            Assert.AreEqual(0.5635692042255156424905, NumericalMethods.NewtonMethod(f, g, initialValue), tolerance);
+            f = (x => 5 * x * x - 3);
+            g = (x => 10 * x);
+            Assert.AreEqual(0.774596669241483377, NumericalMethods.NewtonMethod(f, g, initialValue, maxNumberofSteps), tolerance);
+        }
 
-            f = (x => 5*x*x-3);
-            g = (x => 10*x);
+        [TestMethod()]
+        public void BisectionMethodTest()
+        {
+            int maxIterations = 2000;
+            double delta = 0.00000000000001;
 
-            Assert.AreEqual(0.774596669241483377, NumericalMethods.NewtonMethod(f, g, initialValue), tolerance);
+            Func<double, double> f = (x => 2 * Math.Cos(x) - 3 * x);
+            Assert.AreEqual(0.5635692042255156424905, NumericalMethods.BisectionMethod(f, -10, 10), delta);
 
+            f = (x => 5 * x - 3);
+            Assert.AreEqual(0.6, NumericalMethods.BisectionMethod(f, -50, 50), delta);
+
+            f = (x=>x-Math.Exp(-x));
+            Assert.AreEqual(0.567143290409783872, NumericalMethods.BisectionMethod(f, -10, 10, maxIterations, 1E-19), delta);
         }
     }
 }

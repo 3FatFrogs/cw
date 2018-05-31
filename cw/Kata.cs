@@ -357,6 +357,8 @@ namespace cw
 
         public static double NewtonMethod(Func<double, double> f, Func<double, double> g, double x0, int maxNumberOfSteps = int.MaxValue, double tolerance=1E-15)
         {
+            // Xn+1 = Xn - [f(Xn)/f'(xn)]
+
             double nextApproximation = x0;
             double currentSolution = x0;
 
@@ -372,6 +374,34 @@ namespace cw
                 currentSolution = nextApproximation;
             }            
             return nextApproximation;
+        }
+
+        public static double BisectionMethod(Func<double,double> f, double a, double b, int maxNumberOfIterations = int.MaxValue, double epsilon = 1E-15)
+        {
+            if (Math.Sign(f(a)) == Math.Sign(f(b)))
+                throw new ArgumentOutOfRangeException();
+
+            if (Math.Abs(f(a)) < epsilon)
+                return a;
+
+            if (Math.Abs(f(b)) < epsilon)
+                return b;
+
+            double x =0.0;
+            for (int i = 0; i < maxNumberOfIterations; i++)
+            {
+                x = 0.5 * (a + b);
+
+                if (Math.Abs(f(x)) < epsilon)
+                    return x;
+
+                if (Math.Sign(f(a)) == Math.Sign(f(x)))
+                    a = x;
+                else
+                    b = x;
+            }
+
+            return x;
         }
     }
 }
