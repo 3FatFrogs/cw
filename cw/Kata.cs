@@ -403,5 +403,13 @@ namespace cw
 
             return x;
         }
+
+        public static double Slope(Func<double,double> f, double a, double b)
+        {
+            if (a == b)
+                throw new ArgumentException();
+
+            return (f(b)-f(a))/(b-a);
+        }
     }
 }

@@ -89,8 +89,14 @@ namespace cw.Tests
             f = (x => 5 * x - 3);
             Assert.AreEqual(0.6, NumericalMethods.BisectionMethod(f, -50, 50), delta);
 
-            f = (x=>x-Math.Exp(-x));
+            f = (x => x - Math.Exp(-x));
             Assert.AreEqual(0.567143290409783872, NumericalMethods.BisectionMethod(f, -10, 10, maxIterations, 1E-19), delta);
+        }
+
+        [TestMethod()]
+        public void SlopeTest()
+        {
+            Assert.AreEqual(0.5, NumericalMethods.Slope((x => 0.5*x+2), 6, 2));
         }
     }
 }
