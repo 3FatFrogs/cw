@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace cw
@@ -443,5 +444,37 @@ namespace cw
 
             return (f(b)-f(a))/(b-a);
         }
+
+        public static List<int> FindAllFactors(int n)
+        {
+            n = Math.Abs(n);
+
+            List<int> factors = new List<int>();
+
+            int flag = n;
+
+            for (int i = 1; i <= flag; i++)
+            {
+                flag = n / i;
+
+                for (int j = flag; j >= i; j--)
+                {
+                    if (i * j == n)
+                    {
+                        if (!factors.Contains(i))
+                            factors.Add(i);
+
+                        if (!factors.Contains(j))
+                            factors.Add(j);
+
+                        j=0;
+                    }
+                }
+            }
+
+            Utils.PrintList(factors);
+            return factors.Select(x => -x).Union(factors).ToList();
+        }
+
     }
 }

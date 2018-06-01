@@ -117,5 +117,19 @@ namespace cw.Tests
             f = (x => x - Math.Exp(-x));
             Assert.AreEqual(0.567143290409783872, NumericalMethods.RegulaFalseMethod(f, -1, 1, maxIterations, 1E-19), delta);
         }
+
+        [TestMethod()]
+        public void FindAllFactorsTest()
+        {
+            List<int> factors1 = new List<int>() { 1, 2, 3, 4, 6, 12 };
+            Assert.IsTrue(Enumerable.SequenceEqual(NumericalMethods.FindAllFactors(12).OrderBy(x => x), factors1.Select(x => -x).Union(factors1).ToList().OrderBy(x => x)));
+
+            List<int> factors2 = new List<int>() { 1, 7, 13, 91, 97, 679, 739, 1261, 5173, 8827, 9607, 67249, 71683, 501781, 931879, 6523153 };
+            Assert.IsTrue(Enumerable.SequenceEqual(NumericalMethods.FindAllFactors(6523153).OrderBy(x => x), factors2.Select(x => -x).Union(factors2).ToList().OrderBy(x => x)));
+
+            List<int> factors3 = new List<int>() { 1, 3, 9 };
+            Assert.IsTrue(Enumerable.SequenceEqual(NumericalMethods.FindAllFactors(9).OrderBy(x => x), factors3.Select(x => -x).Union(factors3).ToList().OrderBy(x => x)));
+
+        }
     }
 }
