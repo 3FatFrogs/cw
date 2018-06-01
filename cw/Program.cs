@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
-using System.Diagnostics;
 using System.Reflection;
+using System.Windows.Media;
 
 namespace cw
 {
@@ -17,13 +14,83 @@ namespace cw
 
         static void Main(string[] args)
         {
-            Func<double, double> f = (x => 2 * Math.Cos(x) - 3 * x);
-            Func<double, double> g = (x => -2 * Math.Sin(x) - 3);
+            //multiplicationExample();
 
-            NumericalMethods.NewtonMethod(f, g, 0.25);
-            NumericalMethods.NewtonMethod(f, g, 1);
+            //System.Windows.Media.Matrix matrix1 = new Matrix(2,4,5,5, 10, 15, 20, 25, 30);
+
+            int[,] A = new int[2, 3] { {1,2,3},{4,5,6},};
+
+            int[,] B = new int[3, 2] { { 7, 8 }, { 9, 10 }, { 11, 12 } };
+
+            Utils.Printmatrix(A);
+            Utils.Printmatrix(B);
+
         }
 
+
+        private static void multiplicationExample()
+        {
+
+            Matrix matrix1 = new Matrix(5, 10, 15, 20, 25, 30);
+            Matrix matrix2 = new Matrix(2, 4, 6, 8, 10, 12);
+
+            // matrixResult is equal to (70,100,150,220,240,352) 
+            Matrix matrixResult = Matrix.Multiply(matrix1, matrix2);
+
+            // matrixResult2 is also
+            // equal to (70,100,150,220,240,352) 
+            Matrix matrixResult2 = matrix1 * matrix2;
+        }
+
+        public static double[,] MultiplyMatrix(double[,] a, double[,] b)
+        {
+            double[,] x = new double[a.GetLength(1),b.GetLength(1)];
+
+            for (int i = 0; i < x.GetLength(0); i++)
+            {
+                for (int j = 0; j < x.GetLength(1); j++)
+                {
+                    x[i, j] = a[i, j] * b[i, j];
+                }
+                Console.WriteLine();
+            }
+
+
+
+            return x;
+        }
+
+        public static double HornerEvaluate(int[] CoefficientsOfPolynomial, double x)
+        {
+            double r = 0;
+
+            for (int i = CoefficientsOfPolynomial.Length - 1; i >= 0; i--)
+            {
+                r = x * r + CoefficientsOfPolynomial[i];
+                Console.WriteLine(r);
+            }
+            return r;
+        }
+
+        public static double Horner(int[] CoefficientsOfPolynomial, double x)
+        {
+            double p = CoefficientsOfPolynomial.Last();
+            double q = CoefficientsOfPolynomial.Last();
+
+            for (int i = CoefficientsOfPolynomial.Length - 2; i > 0; i--)
+            {
+                p = x * p + CoefficientsOfPolynomial[i];
+                q = x * q + p;
+            }
+
+            p = x * p + CoefficientsOfPolynomial[0];
+
+            Console.WriteLine("p = " + p);
+            Console.WriteLine("q = " + q);
+            Console.WriteLine("p/q = " + p/q);
+
+            return q;
+        }
 
         private static void ExampleDelegatemachinery()
         {
@@ -71,7 +138,6 @@ namespace cw
             Utils.PrintArray(result3.ToArray());
             Utils.PrintArray(pippo.ToArray());
         }
-
 
         static IEnumerable<int> GetAllValidNumbers(IEnumerable<int> numbers, MeDelegate gauntlet)
         {
@@ -246,27 +312,6 @@ namespace cw
     {
         public void StaplerOff (int sec) { Console.WriteLine(MethodBase.GetCurrentMethod().ReflectedType.Name + "." + MethodBase.GetCurrentMethod().Name); }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     struct Person
     {

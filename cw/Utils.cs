@@ -276,6 +276,20 @@ namespace cw
             Console.WriteLine();
         }
 
+        public static void Printmatrix<T>(T[,] A)
+        {
+            Console.WriteLine("=============================================");
+            for (int i = 0; i < A.GetLength(0); i++)
+            {
+                for (int j = 0; j < A.GetLength(1); j++)
+                {
+                    Console.Write(A[i, j] + "\t");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+        }
+
         public static List<int> GeneratedList(int startingAt, int count)
         {
             return Enumerable.Range(startingAt, count).ToList();

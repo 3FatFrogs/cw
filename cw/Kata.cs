@@ -356,12 +356,12 @@ namespace cw
             x1 = (-b - sqrt) / (2 * a);
         }
 
-        public static double NewtonMethod(Func<double, double> f, Func<double, double> g, double x0, int maxNumberOfSteps = int.MaxValue, double tolerance=1E-15)
+        public static double NewtonMethod(Func<double, double> f, Func<double, double> g, double initialGuess, int maxNumberOfSteps = int.MaxValue, double tolerance=1E-15)
         {
             // Xn+1 = Xn - [f(Xn)/f'(xn)]
-
-            double nextApproximation = x0;
-            double currentSolution = x0;
+            
+            double nextApproximation = initialGuess;
+            double currentSolution = initialGuess;
 
             for (int i = 0; i < maxNumberOfSteps; i++)
             {
