@@ -476,5 +476,49 @@ namespace cw
             return factors.Select(x => -x).Union(factors).ToList();
         }
 
+        public static List<double> RationalRootsTest(int[] coefficients)
+        {
+            //The polynomial must have int coeff.
+
+            //coefficients[0] is the constant term
+            //coefficients[n-1] is the leading term
+
+            List<double> roots = new List<double>();
+
+            int constantTerm = coefficients[0];
+            int leadingTerm = coefficients.Last();
+
+            //find factors
+            var p = FindAllFactors(constantTerm);
+            var q = FindAllFactors(leadingTerm);
+
+            //find all possible candidates rational roots
+            HashSet<double> possibleRoots = new HashSet<double>(); //use HashSet because I don't want duplicates
+            foreach (var factorConst in p)
+            {
+                foreach (var factorLeading in q)
+                {
+                    possibleRoots.Add((double)factorConst / factorLeading);
+                }
+            }
+
+            //check which of the possibleRoots are roots of the P(x)
+            foreach (var root in possibleRoots)
+            {
+                double result = 0.0;
+                for (int i = 0; i < coefficients.Length; i++)
+                {
+                    result += coefficients[i] * Math.Pow(root, i);
+                }
+
+                if (result == 0)
+                {
+                    roots.Add(root);
+                    Console.WriteLine("root = " + root + " -- " + result);
+                }
+            }
+
+            return roots;
+        }
     }
 }

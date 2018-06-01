@@ -129,7 +129,18 @@ namespace cw.Tests
 
             List<int> factors3 = new List<int>() { 1, 3, 9 };
             Assert.IsTrue(Enumerable.SequenceEqual(NumericalMethods.FindAllFactors(9).OrderBy(x => x), factors3.Select(x => -x).Union(factors3).ToList().OrderBy(x => x)));
+        }
 
+        [TestMethod()]
+        public void RationalRootsTestTest()
+        {
+            List<double> correctRoots = new List<double>() { 2, 3, -3, -5, 7, -8 }.OrderBy(x => x).ToList();
+
+            int[] coefficients = new int[] { 1, 4, -72, -214, 1127, 1602, -5040 };
+            Array.Reverse(coefficients);
+
+            var result = NumericalMethods.RationalRootsTest(coefficients).OrderBy(x=>x);
+            Assert.IsTrue(Enumerable.SequenceEqual(result, correctRoots));
         }
     }
 }
