@@ -277,6 +277,48 @@ namespace cw
             Console.WriteLine();
         }
 
+        public static void PrintInfoObjectUsingReflection(string TypeName)
+        {
+            Type type = Type.GetType(TypeName);
+
+            Console.WriteLine("====================================");
+
+            Console.WriteLine("Assembly               = " + type.Assembly);
+            Console.WriteLine("AssemblyQualifiedName  = " + type.AssemblyQualifiedName);
+            Console.WriteLine("BaseType               = " + type.BaseType);
+            Console.WriteLine("FullName               = " + type.FullName);
+            Console.WriteLine("Name                   = " + type.Name);
+            Console.WriteLine("Namespace              = " + type.Namespace);
+            Console.WriteLine("GUID                   = " + type.GUID);
+            Console.WriteLine("BaseType               = " + type.BaseType);
+
+            Console.WriteLine(Environment.NewLine + "--- GetConstructors");
+            foreach (var ctor in type.GetConstructors())
+            {
+                Console.WriteLine("ctor  = " + ctor);
+            }
+
+            Console.WriteLine(Environment.NewLine + "--- GetMethods");
+            foreach (var method in type.GetMethods())
+            {
+                Console.WriteLine("method  = " + method);
+            }
+
+            Console.WriteLine(Environment.NewLine + "--- GetProperties");
+            foreach (var property in type.GetProperties())
+            {
+                Console.WriteLine("property  = " + property);
+            }
+
+            Console.WriteLine(Environment.NewLine + "--- GetFields");
+            foreach (var field in type.GetFields())
+            {
+                Console.WriteLine("Field  = " + field);
+            }
+
+            Console.WriteLine();
+        }
+
         public static void Printmatrix<T>(T[,] A)
         {
             Console.WriteLine("=============================================");
