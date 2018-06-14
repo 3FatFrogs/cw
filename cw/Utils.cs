@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using System.Reflection;
 
 namespace cw
 {
@@ -317,6 +317,20 @@ namespace cw
             }
 
             Console.WriteLine();
+        }
+
+
+        public static void ExampleReflection()
+        {
+            Assembly executingAssembly = Assembly.GetExecutingAssembly();
+
+            var allTypes = executingAssembly.GetTypes();
+
+            foreach (Type type in allTypes)
+            {
+                Console.WriteLine(type.ToString());
+            }
+
         }
 
         public static void Printmatrix<T>(T[,] A)

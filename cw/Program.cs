@@ -6,90 +6,110 @@ using System.Windows.Media;
 
 namespace cw
 {
+    class Customer
+    {
+        public double pippo;
+        public int Id { get; set; }
+        public string  Name { get; set; }
+
+        public Customer(int id, string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
+
+        public Customer()
+        {
+            this.Id = -1;
+            this.Name = string.Empty;
+        }
+
+        public void PrintId() { Console.WriteLine("Id     = {0}", this.Id); }
+        public void PrintName() { Console.WriteLine("Name = {0}", this.Name); }
+        public string GetFullName(string firstName, string lastName) { return firstName + " " + lastName;  }
+
+    };
+
     class Program
     {
         delegate bool MeDelegate(int x); //declare delegate (predicate)
         static bool LessThan5(int x) { return x < 5; }
         static bool LessThan7(int x) { return x < 7; }
 
+        public class GenericList<T>
+        {
+            public void Add(T input) { }
+        }
+
+
+        public class Person : ICloneable
+        {
+            object ICloneable.Clone()
+            {
+                return Clone();
+            }
+
+            public Person Clone()
+            {
+                Person p = new Person();
+
+                return p;
+            }
+        }
+
+
         static void Main(string[] args)
         {
-            //multiplicationExample();
+            //ExampleWithReflection();
+            int[] pins = { 1, 3, 4, 5, 6, 7 };
 
-            //System.Windows.Media.Matrix matrix1 = new Matrix(2,4,5,5, 10, 15, 20, 25, 30);
-
-            int[,] A = new int[2, 3] { {1,2,3},{4,5,6},};
-
-            int[,] B = new int[3, 2] { { 7, 8 }, { 9, 10 }, { 11, 12 } };
-
-            Utils.Printmatrix(A);
-            Utils.Printmatrix(B);
-
-        }
-
-
-        private static void multiplicationExample()
-        {
-
-            Matrix matrix1 = new Matrix(5, 10, 15, 20, 25, 30);
-            Matrix matrix2 = new Matrix(2, 4, 6, 8, 10, 12);
-
-            // matrixResult is equal to (70,100,150,220,240,352) 
-            Matrix matrixResult = Matrix.Multiply(matrix1, matrix2);
-
-            // matrixResult2 is also
-            // equal to (70,100,150,220,240,352) 
-            Matrix matrixResult2 = matrix1 * matrix2;
-        }
-
-        public static double[,] MultiplyMatrix(double[,] a, double[,] b)
-        {
-            double[,] x = new double[a.GetLength(1),b.GetLength(1)];
-
-            for (int i = 0; i < x.GetLength(0); i++)
+            foreach (int i in pins)  //The foreach construct provides an elegant mechanism that greatly simplifies the code you need to write, but it can be exercised only under certain circumstances—you can use foreach only to step through an enumerable collection.
             {
-                for (int j = 0; j < x.GetLength(1); j++)
-                {
-                    x[i, j] = a[i, j] * b[i, j];
-                }
-                Console.WriteLine();
+                Console.WriteLine(i);
             }
-
-
-
-            return x;
         }
 
-        public static double HornerEvaluate(int[] CoefficientsOfPolynomial, double x)
-        {
-            double r = 0;
 
-            for (int i = CoefficientsOfPolynomial.Length - 1; i >= 0; i--)
-            {
-                r = x * r + CoefficientsOfPolynomial[i];
-                Console.WriteLine(r);
-            }
-            return r;
+        public static void Add<T,U>(T key, U value)
+        {
+            Console.WriteLine(typeof(T).Name);
+            Console.WriteLine(typeof(U).Name);
         }
 
-        public static double Horner(int[] CoefficientsOfPolynomial, double x)
+        private static void ExampleWithReflection()
         {
-            double p = CoefficientsOfPolynomial.Last();
-            double q = CoefficientsOfPolynomial.Last();
+            const string TypeName = "cw.Customer";
+            Customer customer = new Customer();// early binding -- create an instance at compile time
+            Console.WriteLine(customer.GetFullName("AAA", "BBB")); //early binding
 
-            for (int i = CoefficientsOfPolynomial.Length - 2; i > 0; i--)
-            {
-                p = x * p + CoefficientsOfPolynomial[i];
-                q = x * q + p;
-            }
+            Assembly executingAssembly = Assembly.GetExecutingAssembly(); //
 
-            p = x * p + CoefficientsOfPolynomial[0];
+            Type customerType = executingAssembly.GetType(TypeName); //
 
-            Console.WriteLine("p = " + p);
-            Console.WriteLine("q = " + q);
-            Console.WriteLine("p/q = " + p/q);
+            var customerInstance = Activator.CreateInstance(customerType); //create an instance of the obj
 
-            return q;
+            var getFullNameMethod = customerType.GetMethod("GetFullName"); //name of the method we want to run
+
+            string[] parameters = new string[2];  //input of my method
+
+            parameters[0] = "AAA";
+            parameters[1] = "BBB";
+
+
+            string result = (string)getFullNameMethod.Invoke(customerInstance, parameters);
+
+            Console.WriteLine(result);
+            return;
+
+
+            Utils.ExampleReflection();
+
+            var type = customer.GetType();
+
+            Type T = Type.GetType(TypeName);
+
+            //Utils.PrintInfoObjectUsingReflection(TypeName);
+            //Utils.PrintInfoObjectUsingReflection(typeof(List<>).FullName);
         }
 
         private static void ExampleDelegatemachinery()
@@ -130,8 +150,7 @@ namespace cw
             var result1 = GetAllNumbersLessThan5(input);
             var result2 = GetAllNumbersLessThan7(input);
             var result3 = GetAllValidNumbers(input, LessThan5);
-
-            var pippo = GetAllValidNumbers(input, (x=>x>7));
+            var pippo = GetAllValidNumbers(input, (x => x > 7));
 
             Utils.PrintArray(result1.ToArray());
             Utils.PrintArray(result2.ToArray());
@@ -166,62 +185,6 @@ namespace cw
             }
         }
 
-        static void Foo() { Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod().Name); }
-
-        public static List<string> Bar(string s)
-        {
-            List<string> permutations = new List<string>();
-
-            if (s == null)
-                return null;
-
-            if (s.Length == 0)
-            {
-                permutations.Add("");
-                return permutations;
-            }
-            return permutations;
-        }
-
-        public static string AddSpace(string str)
-        {
-            var x = str.ToCharArray();
-            var z = str.ToList();
-
-
-            var pippo = z.ToString();
-
-            return "dfqad";
-
-            //return new string();
-        }
-
-        public static string ConvertListToString<T>(List<T> l)
-        {
-            return string.Join("", l.ToArray());
-        }
-
-        public static List<string> Foo2(string str, char c = 'X')
-        {
-            var y = str.ToCharArray();
-            List<string> result = new List<string>();
-
-            for (int i = 0; i < str.Length + 1; i++)
-            {
-                char[] x = new char[str.Length + 1];
-                x[i] = c;
-                int position = 0;
-                for (int j = 0; j < str.Length + 1; j++)
-                {
-                    if (i != j)
-                        x[j] = y[position++];
-                }
-
-                result.Add(new string(x));
-            }
-
-            return result;
-        }
     }
 
     class TemperatureMonitor
@@ -263,7 +226,7 @@ namespace cw
 
         public void RemoveStopMachinery(stopMachineryDelegate machine)
         {
-            if(this.stopMachinery!=null)
+            if (this.stopMachinery != null)
                 this.stopMachinery -= machine;
         }
     }
@@ -310,216 +273,7 @@ namespace cw
 
     class StaplerMachiner
     {
-        public void StaplerOff (int sec) { Console.WriteLine(MethodBase.GetCurrentMethod().ReflectedType.Name + "." + MethodBase.GetCurrentMethod().Name); }
+        public void StaplerOff(int sec) { Console.WriteLine(MethodBase.GetCurrentMethod().ReflectedType.Name + "." + MethodBase.GetCurrentMethod().Name); }
     }
 
-    struct Person
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-    }
-
-    class Processor
-    {
-        public Processor()
-        {
-            Console.WriteLine("*** CTOR ***");
-        }
-
-        public void PerformCalculation()
-        {
-            string nameMethod = System.Reflection.MethodBase.GetCurrentMethod().Name;
-            var className = this.GetType().FullName;
-            Console.WriteLine("*** " + className + " - " + nameMethod);
-        }
-    }
-
-    class Polygon
-    {
-        public int NumSide { get; set; }
-    }
-
-    class Triangle
-    {
-        private int sideLength1 = 10;
-        private int sideLength2 = 10;
-        private int sideLength3 = 10;
-
-        public int SideLength1
-        {
-            set { this.sideLength1 = value; }
-        }
-
-        public int SideLength2
-        {
-            set { this.sideLength2 = value; }
-        }
-
-        public int SideLength3
-        {
-            get { return this.sideLength3; }
-            set { this.sideLength3 = value; }
-        }
-
-        public int SideLength { get; set; }
-
-        public void Print()
-        {
-            Console.WriteLine(sideLength1);
-            Console.WriteLine(sideLength2);
-            Console.WriteLine(sideLength3);
-        }
-
-    }
-
-    class FooDisposable : IDisposable
-    {
-        private bool alreadyDisposed = false;
-        public double[] managedResources;
-
-        public void Hello()
-        {
-            Console.WriteLine("Hello");
-        }
-
-        public FooDisposable(int size)
-        {
-            managedResources = new double[size];
-            Console.WriteLine("*** CTOR Foo ");
-        }
-
-        ~FooDisposable()
-        {
-            Console.WriteLine("*** DTOR Foo ");
-            DisposeAll(false);
-            Console.WriteLine("Total Memory: {0}", GC.GetTotalMemory(true) / 1048576);
-        }
-
-        public void Dispose()
-        {
-            Console.WriteLine("*** Dispose ");
-            DisposeAll(true);
-            GC.SuppressFinalize(this); //This method stops the garbage collector from calling the destructor on this object, because the object has already been finalized.
-        }
-
-        public virtual void DisposeAll(bool disposing)
-        {
-            if (!alreadyDisposed)
-            {
-                if (disposing)
-                {
-                    managedResources = null;
-                }
-
-                //release unmanaged resource here
-                this.alreadyDisposed = true;
-            }
-        }
-    }
-
-    class BaseClass
-    {
-        public BaseClass()
-        {
-            Console.WriteLine("CTOR - BaseClass");
-        }
-
-        ~BaseClass()
-        {
-            Console.WriteLine("DTOR - BaseClass");
-        }
-
-        public BaseClass(string str)
-        {
-            Console.WriteLine("CTOR - BaseClass " + str);
-        }
-
-        public int Addition(params int[] x)
-        {
-            int sum = 0;
-
-            for (int i = 0; i < x.Length; i++)
-            {
-                sum += x[i];
-            }
-            return sum;
-        }
-
-        public virtual void Foo()
-        {
-            Console.WriteLine("Foo - BaseClass");
-        }
-
-        protected virtual void Bar()
-        {
-            Console.WriteLine("Bar - BaseClass");
-        }
-    }
-
-    class Derived : BaseClass
-    {
-        public Derived()
-        {
-            Console.WriteLine("CTOR - Derived");
-        }
-
-        public override void Foo()
-        {
-            Console.WriteLine("Foo - Derived");
-        }
-
-    }
-
-    class Derived2 : Derived
-    {
-        public Derived2()
-        {
-            Console.WriteLine("CTOR - Derived2");
-        }
-
-        public override void Foo()
-        {
-            Console.WriteLine("Foo - Derived2");
-        }
-    }
-
-    interface ITest1
-    {
-        string Name { get; set; }
-        void SampleTest();
-        int ReturnMe(int j);
-    }
-
-    interface ITest2
-    {
-        void SampleTest();
-        int Return(int j);
-    }
-
-    class Pippo : ITest1, ITest2
-    {
-        void ITest1.SampleTest()
-        {
-            Console.WriteLine("SampleTest");
-        }
-
-        void ITest2.SampleTest()
-        {
-            Console.WriteLine("SampleTest");
-        }
-
-        public int ReturnMe(int j)
-        {
-            return 5;
-        }
-
-        public int Return(int j)
-        {
-            return 3;
-        }
-
-        public string Name { get; set; }
-
-    }
 }
