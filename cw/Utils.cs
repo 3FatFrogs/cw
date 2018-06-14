@@ -269,6 +269,7 @@ namespace cw
 
         public static void PrintList<T>(List<T> x)
         {
+            Console.WriteLine("====================================");
             foreach (var item in x)
             {
                 Console.WriteLine(item);
@@ -343,6 +344,11 @@ namespace cw
         public static Dictionary<int,T> ConvertListToDictionary<T>(List<T> inputList)
         {
             return inputList.Select((value, index) => new { s= value, i=index }).ToDictionary(x => x.i, x => x.s);
+        }
+
+        public static string ConvertListToString<T>(List<T> l)
+        {
+            return string.Join("", l.ToArray());
         }
 
         public static void FileWriteLine(string path, string content)

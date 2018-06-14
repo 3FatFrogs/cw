@@ -133,5 +133,12 @@ namespace cw.Tests
             int i = 4;
             Assert.AreEqual(-4, Utils.Negate(i));
         }
+
+        [TestMethod()]
+        public void ConvertListToStringTest()
+        {
+            List<int> listInt = new List<int> { 1, 2, 3, 4 };
+            Assert.AreEqual("1234", Utils.ConvertListToString(listInt));
+        }
     }
 }
