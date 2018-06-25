@@ -257,13 +257,24 @@ namespace cw
             return permutations;
         }
 
-        public static void PrintArray<T>(T[] x)
+        public static void PrintArray<T>(T[] x, bool newLine = true)
         {
             Console.WriteLine("====================================");
-            for (int i = 0; i < x.Length; i++)
+            if (newLine)
             {
-                Console.WriteLine(x[i]);
+                for (int i = 0; i < x.Length; i++)
+                {
+                    Console.WriteLine(x[i]);
+                }
             }
+            else
+            {
+                for (int i = 0; i < x.Length; i++)
+                {
+                    Console.Write(x[i] + " ");
+                }
+            }
+
             Console.WriteLine();
         }
 
