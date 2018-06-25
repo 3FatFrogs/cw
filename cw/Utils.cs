@@ -410,10 +410,46 @@ namespace cw
         public static void FileWriteLine(string path, string content)
         {
             if (!File.Exists(path))
-                File.WriteAllText(path, content);
+                File.WriteAllText(path, content + Environment.NewLine);
             else
                 File.AppendAllText(path, content + Environment.NewLine);
         }
         
+        //search all files in a folder and merge (append) them in another file
+        public static void MergeAllFilesWithinAFolder(
+            string directoryPath,
+            string filename,
+            string searchPattern = "*.txt",
+            bool keepOnlyOneHeader = true,
+            bool distinctLines = false,
+            bool removeEmptyLines = true,
+            bool removeLinesWithNonAplhanumericChar = true)
+        {
+            string fullPath = Path.Combine(directoryPath, filename);
+            string[] allTxtFiles = Directory.GetFiles(directoryPath, searchPattern);
+            var filesContent = allTxtFiles.SelectMany(x => File.ReadAllLines(x).Concat(new[] { Environment.NewLine }));
+
+            if (allTxtFiles.Length > 0)
+            {
+                if (keepOnlyOneHeader)
+                {
+                    string header = filesContent.ToList().ElementAt(0);
+                    filesContent = filesContent.Where((x, i) => x!=header || i == 0);
+                }
+                if (removeEmptyLines)
+                {
+                    filesContent = filesContent.Where(x => x.Length > 0).Select(x => x);
+                    filesContent = filesContent.Where(x => x!=Environment.NewLine).Select(x => x);
+                }
+
+                if(removeLinesWithNonAplhanumericChar)
+                    filesContent = filesContent.Where(x => x.All(char.IsLetterOrDigit)).Select(x => x);
+
+                if (distinctLines)
+                    filesContent = filesContent.Distinct();
+            }
+
+            File.WriteAllLines(fullPath, filesContent);
+        }
     }
 }

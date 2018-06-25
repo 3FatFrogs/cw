@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Media;
 
 namespace cw
 {
@@ -63,7 +62,7 @@ namespace cw
             //ExampleWithReflection();
             int[] pins = { 1, 3, 4, 5, 6, 7 };
 
-            foreach (int i in pins)  //The foreach construct provides an elegant mechanism that greatly simplifies the code you need to write, but it can be exercised only under certain circumstances—you can use foreach only to step through an enumerable collection.
+            foreach (var i in pins)  //The foreach construct provides an elegant mechanism that greatly simplifies the code you need to write, but it can be exercised only under certain circumstances—you can use foreach only to step through an enumerable collection.
             {
                 Console.WriteLine(i);
             }
@@ -101,15 +100,6 @@ namespace cw
             Console.WriteLine(result);
             return;
 
-
-            Utils.ExampleReflection();
-
-            var type = customer.GetType();
-
-            Type T = Type.GetType(TypeName);
-
-            //Utils.PrintInfoObjectUsingReflection(TypeName);
-            //Utils.PrintInfoObjectUsingReflection(typeof(List<>).FullName);
         }
 
         private static void ExampleDelegatemachinery()
