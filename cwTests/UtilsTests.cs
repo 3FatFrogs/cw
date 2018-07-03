@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using cw;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
@@ -135,6 +136,35 @@ namespace cw.Tests
         {
             List<int> listInt = new List<int> { 1, 2, 3, 4 };
             Assert.AreEqual("1234", Utils.ConvertListToString(listInt));
+        }
+
+        [TestMethod()]
+        public void CompareMultiDimArrayTest()
+        {
+            int[,] i = new int[,] {
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },};
+
+            int[,] j = new int[,] {
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },};
+
+            int[,] k = new int[,] {
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,0 },
+                { 1,2,3,4,5,6,7 },
+                { 1,2,3,4,5,6,7 },};
+
+            Assert.IsTrue(Utils.CompareMultiDimArray(i, j));
+            Assert.IsFalse(Utils.CompareMultiDimArray(i, k));
+
         }
     }
 }

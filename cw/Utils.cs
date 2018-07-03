@@ -259,9 +259,10 @@ namespace cw
 
         public static void PrintArray<T>(T[] x, bool newLine = true)
         {
-            Console.WriteLine("====================================");
+            
             if (newLine)
             {
+                Console.WriteLine("====================================");
                 for (int i = 0; i < x.Length; i++)
                 {
                     Console.WriteLine(x[i]);
@@ -425,7 +426,28 @@ namespace cw
             else
                 File.AppendAllText(path, content + Environment.NewLine);
         }
-        
+
+        public static bool CompareMultiDimArray<T>(T[,] a, T[,] b) where T:IComparable
+        {
+            if (a.Length != b.Length)
+                return false;
+
+            if (((a.GetLength(0) != b.GetLength(0))) || ((a.GetLength(1) != b.GetLength(1))))
+                return false;
+
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    if ((a[i, j].CompareTo(b[i, j])) != 0)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+
         //search all files in a folder and merge (append) them in another file
         public static void MergeAllFilesWithinAFolder(
             string directoryPath,
