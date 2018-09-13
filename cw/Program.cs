@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -40,7 +39,6 @@ namespace cw
             public void Add(T input) { }
         }
 
-
         public class Person : ICloneable
         {
             object ICloneable.Clone()
@@ -56,7 +54,6 @@ namespace cw
             }
         }
 
-
         static void Main(string[] args)
         {
             int n = 100;
@@ -64,10 +61,7 @@ namespace cw
             int min = -500000;
             double finalSum = -1000;
 
-
-            List<double> vs = new List<double>();
-
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 5000; i++)
             {
                 var listWeights = GetRandomNumbersWithConstraints(n, max, min, finalSum);
 
@@ -76,17 +70,12 @@ namespace cw
                 Console.WriteLine("max   = " + listWeights.Max());
                 Console.WriteLine("min   = " + listWeights.Min());
                 Console.WriteLine("count = " + listWeights.Count());
-
-                vs.Add(listWeights.Average());
             }
-
-
-
         }
 
-        private static List<double> GetRandomNumbersWithConstraints(int numberOfElements, int upperLimit, int lowerLimit, double finalSum, int precision = 6)
+        private static List<double> GetRandomNumbersWithConstraints(int n, int upperLimit, int lowerLimit, double finalSum, int precision = 6)
         {
-            if (upperLimit <= lowerLimit || numberOfElements < 1) //todo improve here
+            if (upperLimit <= lowerLimit || n < 1) //todo improve here
                 throw new ArgumentOutOfRangeException();
 
             Random rand = new Random(Guid.NewGuid().GetHashCode());
@@ -95,138 +84,33 @@ namespace cw
 
             int adj = (int)Math.Pow(10, precision);
 
-
-            //get the numbers within the range and remove all the others from the list
-            //get the numbers (called nValid) and the sum (sumOfValid) of the elements that are still in the list
-            //search for  numberOfElements-nValid random numbers whose sum is (finalSum-sumOfValid)
-
             bool flag = true;
             List<double> weights = new List<double>();
             while (flag)
             {
                 foreach (var d in randomNumbers.Where(x => x <= upperLimit && x >= lowerLimit).ToList())
                 {
-                    if(!weights.Contains(d))
+                    if (!weights.Contains(d))  //only distinct
                         weights.Add(d);
                 }
 
-
-                if (weights.Count() == numberOfElements && weights.Max() <= upperLimit && weights.Min() >= lowerLimit && Math.Round(weights.Sum(), precision) == finalSum)
+                if (weights.Count() == n && weights.Max() <= upperLimit && weights.Min() >= lowerLimit && Math.Round(weights.Sum(), precision) == finalSum)
                     return weights;
 
-
-                //worst case - if the largest sum of the missing elements (example we need 3 elements, then the largest sum is 3*upperlimit) is smaller than (finalSum - sumOfValid)
-
-                if (((numberOfElements - weights.Count()) * upperLimit < (finalSum - weights.Sum())) || 
-                    ((numberOfElements - weights.Count()) * lowerLimit > (finalSum - weights.Sum())))
+                /* worst case - if the largest sum of the missing elements (ie we still need to find 3 elements, 
+                 * then the largest sum is 3*upperlimit) is smaller than (finalSum - sumOfValid)
+                 */
+                if (((n - weights.Count()) * upperLimit < (finalSum - weights.Sum())) ||
+                    ((n - weights.Count()) * lowerLimit > (finalSum - weights.Sum())))
                 {
                     weights = weights.Where(x => x != weights.Max()).ToList();
                     weights = weights.Where(x => x != weights.Min()).ToList();
                 }
 
-
                 int nValid = weights.Count();
                 double sumOfValid = weights.Sum();
 
-                int numberToSearch = numberOfElements - nValid;
-                double sum = finalSum - sumOfValid;
-
-                double j = finalSum - weights.Sum();
-                if (numberToSearch== 1 && (j<=upperLimit || j>=lowerLimit))
-                {
-                    weights.Add(finalSum - weights.Sum());
-                }
-                else
-                {
-                    randomNumbers.Clear();
-                    int min = lowerLimit;
-                    int max = upperLimit;
-                    for (int k = 0; k < numberToSearch; k++)
-                    {
-                            randomNumbers.Add((double)rand.Next(min* adj, max* adj) / adj);
-                    }
-
-                    if(sum!=0 && randomNumbers.Sum()!=0)
-                        randomNumbers = randomNumbers.ConvertAll<double>(x => x * sum / randomNumbers.Sum());
-                }
-            }
-
-            return randomNumbers;
-        }
-
-
-
-
-
-
-
-        private static List<double> GetRandomNumbersWithConstraints2(int numberOfElements, int upperLimit, int lowerLimit, double finalSum, int precision = 6)
-        {
-            if (upperLimit <= lowerLimit || numberOfElements < 1)
-                throw new ArgumentOutOfRangeException();
-
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
-            List<double> randomNumbers = new List<double>();
-
-            for (int k = 0; k < numberOfElements; k++)
-            {
-                //multiply by rand.NextDouble() to avoid duplicates
-                double temp = (double)rand.Next(lowerLimit, upperLimit) * rand.NextDouble();
-
-                if (randomNumbers.Contains(temp))
-                    k--;
-                else
-                    randomNumbers.Add(temp);
-            }
-
-            randomNumbers = randomNumbers.ConvertAll<double>(x => x * finalSum / randomNumbers.Sum());
-
-            //if (randomNumbers.Count() == numberOfElements && randomNumbers.Max() <= upperLimit && randomNumbers.Min() >= lowerLimit && Math.Round(randomNumbers.Sum(), precision) == finalSum)
-            //    return randomNumbers;
-
-
-
-
-            //get the numbers within the range and remove all the others from the list
-            //get the numbers (called nValid) and the sum (sumOfValid) of the elements that are still in the list
-            //search for  numberOfElements-nValid random numbers whose sum is (finalSum-sumOfValid)
-
-            bool flag = true;
-            List<double> weights = new List<double>();
-            while (flag)
-            {
-                //todo check that all elements are distinct
-
-                var currentList = randomNumbers.Where(x => x <= upperLimit && x >= lowerLimit).ToList();
-
-                foreach (var d in currentList)
-                {
-                    if (!weights.Contains(d))
-                        weights.Add(d);
-                }
-
-
-
-                if (weights.Count() == numberOfElements && weights.Max() <= upperLimit && weights.Min() >= lowerLimit && Math.Round(weights.Sum(), precision) == finalSum)
-                    return weights;
-
-
-                //worst case - if the largest sum of the missing elements (example we need 3 elements, then the largest sum is 3*upperlimit) is smaller than (finalSum - sumOfValid)
-
-                if (((numberOfElements - weights.Count()) * upperLimit < (finalSum - weights.Sum())) ||
-                    ((numberOfElements - weights.Count()) * lowerLimit > (finalSum - weights.Sum())))
-                {
-                    weights = weights.Where(x => x != weights.Max()).ToList();
-                    weights = weights.Where(x => x != weights.Min()).ToList();
-                }
-
-
-
-
-                int nValid = weights.Count();
-                double sumOfValid = weights.Sum();
-
-                int numberToSearch = numberOfElements - nValid;
+                int numberToSearch = n - nValid;
                 double sum = finalSum - sumOfValid;
 
                 double j = finalSum - weights.Sum();
@@ -241,28 +125,16 @@ namespace cw
                     int max = upperLimit;
                     for (int k = 0; k < numberToSearch; k++)
                     {
-                        randomNumbers.Add((double)rand.Next(min * 100000, max * 100000) / 100000);
+                        randomNumbers.Add((double)rand.Next(min * adj, max * adj) / adj);
                     }
 
-
-
-                    if (sum != 0)
-                        randomNumbers = randomNumbers.ConvertAll<double>(x => x * sum / randomNumbers.Sum());  //check in case divide by 0
-                    //else
-                    //    randomNumbers = randomNumbers.ConvertAll<double>(x => x  / randomNumbers.Sum());
-
+                    if (sum != 0 && randomNumbers.Sum() != 0)
+                        randomNumbers = randomNumbers.ConvertAll<double>(x => x * sum / randomNumbers.Sum());
                 }
-
-
-
-                ;
             }
-
 
             return randomNumbers;
         }
-
-
 
         public static void Add<T, U>(T key, U value)
         {
