@@ -161,7 +161,6 @@ namespace cw
             parameters[0] = "AAA";
             parameters[1] = "BBB";
 
-
             string result = (string)getFullNameMethod.Invoke(customerInstance, parameters);
 
             Console.WriteLine(result);
@@ -241,7 +240,6 @@ namespace cw
                     yield return number;
             }
         }
-
     }
 
     class TemperatureMonitor

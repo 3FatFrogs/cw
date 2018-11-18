@@ -67,16 +67,15 @@ namespace cw.Tests
                 Assert.Fail();
 
         }
-        [TestMethod()]
-        public void SolveSudTest_empty()
-        {
-            var initialGrid = SetInitialValues_empty();
-            var results = Sudo.SolveSud(initialGrid);
+        //[TestMethod()]
+        //public void SolveSudTest_empty()
+        //{
+        //    var initialGrid = SetInitialValues_empty();
+        //    var results = Sudo.SolveSud(initialGrid);
 
-            if (!IsGridCorrect(results))
-                Assert.Fail();
-
-        }
+        //    if (!IsGridCorrect(results))
+        //        Assert.Fail();
+        //}
 
         private static bool IsGridCorrect(int[,] results)
         {
