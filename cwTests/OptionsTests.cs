@@ -11,7 +11,7 @@ namespace cw.Tests
     [TestClass()]
     public class OptionsTests
     {
-        private double currentPrice = 100.0; //Underlying Price
+        private double currentPrice = 100; //Underlying Price
         private double strikePrice = 100.0;  //Exercise Price
         private double sigma = 0.25;         //Volatility
         private double timeToMaturity = 30; //Days Until Expiration
@@ -24,13 +24,8 @@ namespace cw.Tests
         [TestMethod()]
         public void GetCallPayoffTest()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetPutPayoffTest()
-        {
-            Assert.Fail();
+            var pay1 = european.GetCallPayoff(150, 100);
+            Assert.AreEqual(50, pay1);
         }
 
         [TestMethod()]
@@ -58,37 +53,22 @@ namespace cw.Tests
         [TestMethod()]
         public void GetVegaCallTest()
         {
-            Assert.Fail();
+            var v = european.GetVegaCall(currentPrice, strikePrice, sigma, timeToMaturity, interestRate, dividend);
+            Assert.AreEqual(0.11388, v, delta);
         }
 
         [TestMethod()]
         public void GetThetaCallTest()
         {
-            Assert.Fail();
+            var v = european.GetThetaCall(currentPrice, strikePrice, sigma, timeToMaturity, interestRate, dividend);
+            Assert.AreEqual(-0.05439, v, delta);
         }
 
         [TestMethod()]
         public void GetRhoCallTest()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void EuropeanPutTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetD1Test()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetD2Test()
-        {
-            Assert.Fail();
+            var v = european.GetRhoCall(currentPrice, strikePrice, sigma, timeToMaturity, interestRate, dividend);
+            Assert.AreEqual(0.04163, v, delta);
         }
     }
 }

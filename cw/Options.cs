@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cw
 {
@@ -20,7 +16,7 @@ namespace cw
         //    this.currentPrice = currentPrice;
         //    this.strikePrice = strikePrice;
         //    this.sigma = sigma;
-        //    this.timeToMaturity = timeToMaturity/365;
+        //    this.timeToMaturity = timeToMaturity / 365;
         //    this.interestRate = interestRate;
         //    this.dividend = dividend;
         //}
@@ -36,7 +32,7 @@ namespace cw
             timeToMaturity = timeToMaturity / 365;
             double d1 = GetD1(currentPrice, strikePrice, sigma, timeToMaturity, interestRate, dividend);
             double d2 = GetD2(currentPrice, strikePrice, sigma, timeToMaturity, interestRate, dividend);
-
+            
             return currentPrice * MathUtils.NormalDistribution(d1) - strikePrice * Math.Exp(-interestRate * timeToMaturity) * MathUtils.NormalDistribution(d2);
         }
 
@@ -44,6 +40,7 @@ namespace cw
         {
             timeToMaturity /= 365;
             double d1 = GetD1(currentPrice, strikePrice, sigma, timeToMaturity, interestRate, dividend);
+
             return MathUtils.NormalDistribution(d1);
         }
 
@@ -58,7 +55,7 @@ namespace cw
         {
             timeToMaturity /= 365;
             double d1 = GetD1(currentPrice, strikePrice, sigma, timeToMaturity, interestRate, dividend);
-            return currentPrice * Math.Exp(-0.5 * d1 * d1) / (Math.Sqrt(timeToMaturity * 2 * Math.PI)) / 100;
+            return 0.01*currentPrice * Math.Sqrt(timeToMaturity) * MathUtils.StandardNormalDistribution(d1);
         }
 
         public double GetThetaCall(double currentPrice, double strikePrice, double sigma, double timeToMaturity, double interestRate, double dividend)
@@ -87,12 +84,12 @@ namespace cw
 
         public double GetD1(double currentPrice, double strikePrice, double sigma, double timeToMaturity, double interestRate, double dividend)
         {
-            return (1 / sigma * Math.Sqrt(timeToMaturity)) * (Math.Log(currentPrice / strikePrice) + (interestRate + sigma * sigma * 0.5) * timeToMaturity);
+            return (Math.Log(currentPrice / strikePrice) + (interestRate  + sigma * sigma * 0.5) * timeToMaturity) / (sigma * Math.Sqrt(timeToMaturity));
         }
 
         public double GetD2(double currentPrice, double strikePrice, double sigma, double timeToMaturity, double interestRate, double dividend)
         {
-            return (1 / sigma * Math.Sqrt(timeToMaturity)) * (Math.Log(currentPrice / strikePrice) + (interestRate - sigma * sigma * 0.5) * timeToMaturity);
+            return (Math.Log(currentPrice / strikePrice) + (interestRate - sigma * sigma * 0.5) * timeToMaturity) / (sigma * Math.Sqrt(timeToMaturity));
         }
     }
 }
