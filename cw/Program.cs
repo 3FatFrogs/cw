@@ -54,23 +54,43 @@ namespace cw
             }
         }
 
+        public class Poly
+        {
+            protected double x, y;
+
+            public Poly(double x, double y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+
+            public virtual double Area()
+            {
+                return x * y;
+            }
+            public double Perimetro()
+            {
+                return 2*(x + y);
+            }
+        }
+
         static void Main(string[] args)
         {
-            int n = 100;
-            int max = 5000;
-            int min = -500000;
-            double finalSum = -1000;
+            //int n = 100;
+            //int max = 5000;
+            //int min = -500000;
+            //double finalSum = -1000;
 
-            for (int i = 0; i < 5000; i++)
-            {
-                var listWeights = GetRandomNumbersWithConstraints(n, max, min, finalSum);
+            //for (int i = 0; i < 5000; i++)
+            //{
+            //    var listWeights = GetRandomNumbersWithConstraints(n, max, min, finalSum);
 
-                Console.WriteLine("=============");
-                Console.WriteLine("sum   = " + listWeights.Sum());
-                Console.WriteLine("max   = " + listWeights.Max());
-                Console.WriteLine("min   = " + listWeights.Min());
-                Console.WriteLine("count = " + listWeights.Count());
-            }
+            //    Console.WriteLine("=============");
+            //    Console.WriteLine("sum   = " + listWeights.Sum());
+            //    Console.WriteLine("max   = " + listWeights.Max());
+            //    Console.WriteLine("min   = " + listWeights.Min());
+            //    Console.WriteLine("count = " + listWeights.Count());
+            //}
         }
 
         private static List<double> GetRandomNumbersWithConstraints(int n, int upperLimit, int lowerLimit, double finalSum, int precision = 6)
