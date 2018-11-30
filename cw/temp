@@ -1,0 +1,69 @@
+
+    public class StockInfo
+    {
+        public double initialStockPrice;
+        public string stockName;
+        public List<double> CompoundDailyReturns { get; set; }
+        public List<DateTime> Days { get; set; }
+        public double initialNumerOfShares;
+        public double initialIvestmentForSingleStock; //cash
+
+
+        public StockInfo(string stockName, double initialStockPrice = 1)
+        {
+            this.stockName = stockName;
+            this.initialStockPrice = initialStockPrice;
+        }
+    }
+        
+        
+        
+        private static List<StockInfo> GetInitialData(List<string> symbols, DateTime startDate, DateTime endDate, double initialAmount, int numberOfDays = 0)
+        {
+            //set initial values
+            List<StockInfo> portfolio = new List<StockInfo>();
+
+            foreach (var s in symbols)
+            {
+                portfolio.Add(new StockInfo(s));
+            }
+
+            double period1 = ParseYahooData.ToUnixTimestamp(endDate);
+            double period2 = ParseYahooData.ToUnixTimestamp(startDate);
+
+            string interval = "1d";
+            string symbol = string.Empty;
+
+            foreach (var stock in portfolio)
+            {
+                List<double> myRandom = new List<double>();
+                symbol = stock.stockName;
+                var jsonData = Data.GetYahooData(symbol, period1, period2, interval);
+
+                var hs = ParseYahooData.ParseYahoo(jsonData);
+
+                if (numberOfDays != 0)
+                {
+                    stock.CompoundDailyReturns = hs.Select(x => x.AdjClose).Take(numberOfDays).ToList();
+                    stock.Days = hs.Select(x => x.Date).Take(numberOfDays).ToList();
+                }
+                else
+                {
+                    stock.CompoundDailyReturns = hs.Select(x => x.AdjClose).ToList();
+                    stock.Days = hs.Select(x => x.Date).ToList();
+                }
+
+                stock.initialStockPrice = stock.CompoundDailyReturns[0];
+            }
+
+            double initialIvestmentForSingleStock = initialAmount / portfolio.Count;
+
+            foreach (var stock in portfolio)
+            {
+                stock.initialIvestmentForSingleStock = initialIvestmentForSingleStock;
+                stock.initialStockPrice = stock.CompoundDailyReturns[0];
+                stock.initialNumerOfShares = stock.initialIvestmentForSingleStock / stock.CompoundDailyReturns[0];
+            }
+
+            return portfolio;
+        }
