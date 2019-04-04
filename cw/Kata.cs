@@ -85,19 +85,36 @@ namespace cw
         public static long GetFibonacciIterative(int n)
         {
 
-            long Fn_Minus1 = 0;
             long Fn = 0;
-            long Fn_Plus1 = 1;
+            long Fn_1 = 1;
+            long Fn_2 = 0;
 
-            for (int i = 0; i < n; ++i)
+
+            for (int i = 0; i < n; i++)
             {
-                Fn_Minus1 = Fn;
-                Fn = Fn_Plus1;
-                Fn_Plus1 = Fn + Fn_Minus1;
+                Fn_2 = Fn_1;
+                Fn_1 = Fn;
+                Fn = Fn_1 + Fn_2;
             }
 
             return Fn;
+
+
+
+            //long Fn_Minus1 = 0;
+            //long Fn = 0;
+            //long Fn_Plus1 = 1;
+
+            //for (int i = 0; i < n; ++i)
+            //{
+            //    Fn_Minus1 = Fn;
+            //    Fn = Fn_Plus1;
+            //    Fn_Plus1 = Fn + Fn_Minus1;
+            //}
+
+            //return Fn;
         }
+
     }
 
     public class Prime : Kata

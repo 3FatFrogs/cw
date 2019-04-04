@@ -70,28 +70,32 @@ namespace cw
             }
             public double Perimetro()
             {
-                return 2*(x + y);
+                return 2 * (x + y);
             }
         }
 
         static void Main(string[] args)
         {
-            //int n = 100;
-            //int max = 5000;
-            //int min = -500000;
-            //double finalSum = -1000;
-
-            //for (int i = 0; i < 5000; i++)
-            //{
-            //    var listWeights = GetRandomNumbersWithConstraints(n, max, min, finalSum);
-
-            //    Console.WriteLine("=============");
-            //    Console.WriteLine("sum   = " + listWeights.Sum());
-            //    Console.WriteLine("max   = " + listWeights.Max());
-            //    Console.WriteLine("min   = " + listWeights.Min());
-            //    Console.WriteLine("count = " + listWeights.Count());
-            //}
+            solution(14);
         }
+
+        public static int solution(int N)
+        {
+            if (N < 0)
+                throw new ArgumentOutOfRangeException();
+
+            string binary = Convert.ToString(N, 2);
+
+            int count = 0;
+            for (int i = 0; i < binary.Length; i++)
+            {
+                Console.WriteLine(binary[i]);
+            }
+
+            return 0;
+        }
+
+
 
         private static List<double> GetRandomNumbersWithConstraints(int n, int upperLimit, int lowerLimit, double finalSum, int precision = 6)
         {
