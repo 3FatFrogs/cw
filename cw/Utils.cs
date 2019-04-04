@@ -331,6 +331,19 @@ namespace cw
             Console.WriteLine();
         }
 
+        public static int CountIf(int[] data, Func<double, bool> func)
+        {
+            int counter = 0;
+            foreach (var value in data)
+            {
+                if (func(value))
+                {
+                    counter++;
+                }
+            }
+
+            return counter;
+        }
 
         public static void ExampleReflection()
         {
@@ -363,6 +376,8 @@ namespace cw
         {
             return Enumerable.Range(startingAt, count).ToList();
         }
+
+
 
         public static List<int> GeneratedListRandom(int listLenght)
         {
